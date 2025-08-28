@@ -62,11 +62,11 @@ $choice = Read-Host "Enter your choice (1-5)"
 switch ($choice) {
     "1" {
         Write-Host "🎥 Generating Cat News Video Package..." -ForegroundColor Green
-        python final_demo.py
+        python scripts\final_demo.py
     }
     "2" {
         Write-Host "🔧 Testing API connections..." -ForegroundColor Blue
-        python test_groq_setup.py
+        python scripts\test_groq_setup.py
     }
     "3" {
         Write-Host "⚡ Running quick demo..." -ForegroundColor Blue
