@@ -1,4 +1,11 @@
 # Cat News Video Creator Configuration
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# VOICE SETTINGS
+ELEVENLABS_VOICE_ID = os.getenv('ELEVENLABS_VOICE_ID', '2ajXGJNYBR0iNHpS4VZb')
 
 # MAIN PROJECT CONCEPT
 PROJECT_CONCEPT = {

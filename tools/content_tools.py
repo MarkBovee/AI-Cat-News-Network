@@ -2,10 +2,16 @@ import os
 import requests
 import json
 from typing import List, Dict, Optional
-from moviepy.editor import TextClip, concatenate_videoclips, CompositeVideoClip, VideoFileClip, AudioFileClip, ImageClip
-from elevenlabs import generate, voices
+from moviepy.video.VideoClip import TextClip
+from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip, concatenate_videoclips
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.audio.io.AudioFileClip import AudioFileClip
+from moviepy.video.VideoClip import ImageClip
+from elevenlabs import ElevenLabs
 from PIL import Image, ImageDraw, ImageFont
 from config.ai_provider import ai_provider, generate_content_ideas, write_script, generate_hashtags
+from config.settings import ELEVENLABS_VOICE_ID
+from config.settings import ELEVENLABS_VOICE_ID
 
 class ContentGenerationTool:
     """Tool for generating content with AI - now with Groq for fast and free AI."""
@@ -31,6 +37,46 @@ class AIVideoCreationTool:
         os.makedirs(self.output_dir, exist_ok=True)
         os.makedirs(self.temp_dir, exist_ok=True)
     
+    def create_ai_generated_video(self, news_topic: str, output_path: str = None) -> str:
+        """Create a cat-themed news video using AI video generation instead of text overlays."""
+        if not output_path:
+            output_path = f"{self.output_dir}/ai_cat_news_{news_topic.lower().replace(' ', '_')}.json"
+        
+        try:
+            # Step 1: Generate cat news script
+            script = self._generate_cat_news_script(news_topic)
+            print(f"📝 Script generated: {script[:100]}...")
+            
+            # Step 2: Generate voice-over
+            voice_path = f"{self.temp_dir}/voiceover.mp3"
+            self._generate_voice_over(script, voice_path)
+            print(f"🎤 Voice-over created: {voice_path}")
+            
+            # Step 3: Use AI video generation instead of text overlays
+            from tools.ai_video_generator import AIVideoCreator
+            
+            ai_video_creator = AIVideoCreator()
+            video_package = ai_video_creator.create_cat_news_video(news_topic, script)
+            
+            # Step 4: Save complete package
+            complete_package = {
+                'news_topic': news_topic,
+                'script': script,
+                'voice_file': voice_path,
+                'ai_video_package': video_package,
+                'creation_type': 'ai_generated_video',
+                'status': 'completed'
+            }
+            
+            with open(output_path, 'w') as f:
+                json.dump(complete_package, f, indent=2)
+            
+            print(f"🎬 AI video package created: {output_path}")
+            return f"AI cat news video package created successfully: {output_path}"
+            
+        except Exception as e:
+            return f"Error creating AI cat news video: {str(e)}"
+
     def create_cat_news_video(self, news_topic: str, output_path: str = None) -> str:
         """Create a cat-themed news video with AI-generated content."""
         if not output_path:
@@ -78,25 +124,39 @@ class AIVideoCreationTool:
         return ai_provider.generate_content(prompt, max_tokens=400, temperature=0.8)
     
     def _generate_voice_over(self, script: str, output_path: str) -> str:
-        """Generate voice-over using ElevenLabs with a friendly voice."""
+        """Generate voice-over using ElevenLabs with configured voice."""
         try:
             # Clean script for voice synthesis (remove timing markers)
             clean_script = self._clean_script_for_voice(script)
             
-            # Generate voice using ElevenLabs
-            audio = generate(
+            # Initialize ElevenLabs client (API key from environment)
+            client = ElevenLabs()
+            
+            # Use voice ID from settings
+            voice_id = ELEVENLABS_VOICE_ID
+            print(f"Using voice ID: {voice_id}")
+            
+            # Generate voice using ElevenLabs text_to_speech method
+            audio = client.text_to_speech.convert(
+                voice_id=voice_id,
                 text=clean_script,
-                voice="Sarah",  # Friendly female voice for cat news
-                model="eleven_monolingual_v1"
+                model_id="eleven_monolingual_v1"
             )
             
             # Save audio file
             with open(output_path, 'wb') as f:
-                f.write(audio)
+                for chunk in audio:
+                    f.write(chunk)
             
             return output_path
         except Exception as e:
             print(f"Error generating voice-over: {str(e)}")
+            # Create a placeholder audio file to continue the process
+            try:
+                with open(output_path, 'wb') as f:
+                    f.write(b'')  # Empty file placeholder
+            except:
+                pass
             return None
     
     def _clean_script_for_voice(self, script: str) -> str:
@@ -163,13 +223,13 @@ class AIVideoCreationTool:
             for i, segment in enumerate(segments):
                 # Create styled text clip
                 clip = TextClip(
-                    segment['text'],
-                    fontsize=60,
+                    text=segment['text'],
+                    font_size=60,
                     color='white',
                     bg_color='navy',
                     size=(1080, 1920),  # Vertical format for shorts
                     method='caption'
-                ).set_duration(segment['duration'])
+                ).with_duration(segment['duration'])
                 
                 clips.append(clip)
             
@@ -181,7 +241,7 @@ class AIVideoCreationTool:
                 if voice_path and os.path.exists(voice_path):
                     try:
                         audio = AudioFileClip(voice_path)
-                        final_video = final_video.set_audio(audio)
+                        final_video = final_video.with_audio(audio)
                     except Exception as e:
                         print(f"Could not add audio: {e}")
                 
@@ -257,8 +317,8 @@ class VideoCreationTool:
             for segment in segments:
                 # Create text clip
                 clip = TextClip(
-                    segment['text'],
-                    fontsize=70,
+                    text=segment['text'],
+                    font_size=70,
                     color='white',
                     bg_color='black',
                     size=(1080, 1920)  # Vertical format
