@@ -7,6 +7,10 @@ load_dotenv()
 # VOICE SETTINGS
 ELEVENLABS_VOICE_ID = os.getenv('ELEVENLABS_VOICE_ID', '2ajXGJNYBR0iNHpS4VZb')
 
+def get_setting(key: str, default: str = None) -> str:
+    """Get a setting value from environment variables or configuration"""
+    return os.getenv(key, default)
+
 # MAIN PROJECT CONCEPT
 PROJECT_CONCEPT = {
     "name": "Cat News Network", 

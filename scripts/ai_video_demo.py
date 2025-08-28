@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 """
-Final Demo: AI Cat News Network with Real AI Video Generation
+AI Video Demo: AI Cat News Network with Real AI Video Generation
 """
 
-from tools.content_tools import CatNewsCreator
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from tools.content_tools import AIVideoCreationTool
 
 def main():
-    print("🐱 Starting AI Cat News Network - FINAL DEMO with Real AI Video")
+    print("🐱 Starting AI Cat News Network - AI VIDEO DEMO")
     print("=" * 60)
     
-    creator = CatNewsCreator()
+    creator = AIVideoCreationTool()
     
     # Test the new AI video generation
     news_topic = "Breaking: Scientists Discover Cats Have Been Running Secret Underground Economy"
     
-    print(f"� Creating AI-generated video for: {news_topic}")
+    print(f"📰 Creating AI-generated video for: {news_topic}")
     print()
     
     # Use the new AI video generation method
