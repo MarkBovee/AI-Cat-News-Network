@@ -7,6 +7,22 @@ load_dotenv()
 # VOICE SETTINGS
 ELEVENLABS_VOICE_ID = os.getenv('ELEVENLABS_VOICE_ID', '2ajXGJNYBR0iNHpS4VZb')
 
+# VIDEO GENERATION SETTINGS
+VIDEO_PROVIDERS = {
+    "minimax": {
+        "name": "MiniMax (HailuoAI)",
+        "api_key_env": "MINIMAX_API_KEY",
+        "pricing": "Paid API",
+        "features": ["Text-to-video", "Multiple durations", "9:16 aspect ratio"]
+    },
+    "veo3": {
+        "name": "Google Veo 3",
+        "api_key_env": "GOOGLE_API_KEY", 
+        "pricing": "Free tier + paid options",
+        "features": ["Text-to-video", "High quality", "Free tier available"]
+    }
+}
+
 def get_setting(key: str, default: str = None) -> str:
     """Get a setting value from environment variables or configuration"""
     return os.getenv(key, default)
