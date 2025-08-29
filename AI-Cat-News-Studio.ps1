@@ -8,7 +8,9 @@ Write-Host "5. 🧪 Test Groq AI Setup" -ForegroundColor White
 Write-Host "6. 🎤 Test Voice Generation" -ForegroundColor White
 Write-Host "7. 🚀 Full Production Demo - MiniMax (Real Video Generation)" -ForegroundColor White
 Write-Host "8. 🚀 Full Production Demo - Veo 3 (Real Video Generation)" -ForegroundColor Green
-Write-Host "9. 🧪 Integration Test (All Systems)" -ForegroundColor Cyanth Multiple AI Video Generation Providers (MiniMax & Google Veo 3)
+Write-Host "9. 🧪 Integration Test (All Systems)" -ForegroundColor Cyan
+Write-Host "10. 🔧 Test Individual Components (Modular Testing)" -ForegroundColor Yellow
+Write-Host "11. 🧬 Test Agent Framework (Full Workflow with Outputs)" -ForegroundColor Magentath Multiple AI Video Generation Providers (MiniMax & Google Veo 3)
 
 Write-Host "🐱 AI Cat News Network - Multi-Provider Video Generation Studio" -ForegroundColor Green
 Write-Host "================================================================" -ForegroundColor Green
@@ -70,7 +72,7 @@ Write-Host "7. 🚀 Full Production Demo - MiniMax (Real Video Generation)" -For
 Write-Host "8. 🚀 Full Production Demo - Veo 3 (Real Video Generation)" -ForegroundColor Green
 Write-Host ""
 
-$choice = Read-Host "Enter your choice (1-9)"
+$choice = Read-Host "Enter your choice (1-11)"
 
 switch ($choice) {
     "1" {
@@ -109,9 +111,17 @@ switch ($choice) {
         Write-Host "🧪 Running Integration Test..." -ForegroundColor Cyan
         & $pythonCmd scripts\test_integration.py
     }
+    "10" {
+        Write-Host "🔧 Testing Individual Components..." -ForegroundColor Yellow
+        & $pythonCmd scripts\test_components.py
+    }
+    "11" {
+        Write-Host "🧬 Running Agent Framework Test..." -ForegroundColor Magenta
+        & $pythonCmd scripts\test_agent_framework.py
+    }
     default {
-        Write-Host "❌ Invalid choice. Running provider comparison..." -ForegroundColor Red
-        & $pythonCmd scripts\provider_comparison.py
+        Write-Host "❌ Invalid choice. Running component test..." -ForegroundColor Red
+        & $pythonCmd scripts\test_components.py
     }
 }
 

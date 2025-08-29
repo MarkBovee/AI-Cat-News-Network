@@ -40,7 +40,7 @@ MINIMAX_API_KEY=your_minimax_api_key_here
 
 ```powershell
 # Windows PowerShell
-.\run_cat_news_updated.ps1
+.\AI-Cat-News-Studio.ps1
 ```
 
 ### 3. Try the Demos
@@ -86,7 +86,7 @@ cd AI-Cat-News-Network
 pip install -r requirements.txt
 
 # Run setup
-.\run_cat_news_updated.ps1
+.\AI-Cat-News-Studio.ps1
 ```
 
 ## 🔍 Provider Comparison

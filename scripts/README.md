@@ -18,6 +18,8 @@ This folder contains all Python scripts for the AI Cat News Network.
 - **test_groq_setup.py** - Test Groq AI configuration
 - **test_voice.py** - Test ElevenLabs voice generation
 - **test_integration.py** - Complete system integration test
+- **test_components.py** - Individual component testing with outputs
+- **test_agent_framework.py** - Full agent workflow testing with separate folders
 - **quick_cat_test.py** - Quick text-based cat news test
 
 ## 🚀 Usage
@@ -25,7 +27,7 @@ This folder contains all Python scripts for the AI Cat News Network.
 All scripts are run through the main PowerShell entry point:
 
 ```powershell
-.\run_cat_news_updated.ps1
+.\AI-Cat-News-Studio.ps1
 ```
 
 Or directly:
