@@ -88,6 +88,23 @@ AI-Cat-News-Network/
 - **Social Media Format**: Vertical 9:16 optimized for TikTok/Reels/Shorts
 - **Professional Output**: Complete video packages ready for upload
 
+## 🎥 Video Generation Options
+
+| Type                          | Model / Platform                                                     | Highlights                                     |
+| ----------------------------- | -------------------------------------------------------------------- | ---------------------------------------------- |
+| **Open-source (self-hosted)** | HunyuanVideo, Open-Sora, Waver, VideoCrafter1, CogVideoX-Flash       | Full control, free if you host/run it yourself |
+| **API wrappers**              | OpenVideoGen                                                         | Turn local models into API services easily     |
+| **Hosted free tiers**         | Replicate models, Dream Machine, Hailuo, Pika Labs, Runway, Reelmind | Access without infra, some free credits/plans  |
+| **Community tools**           | Chipling.xyz, studio.sefirot.io                                      | Experimental platforms; may require vetting    |
+
+### Current Implementation Status
+- ✅ **Hailuo (MiniMax)** - Working but needs account funding
+- ✅ **Runway ML** - Working with configurable settings  
+- ✅ **HunyuanVideo** - Framework ready, needs model integration
+- ✅ **Pika Labs** - Working (API key required)
+- 📋 **Dream Machine** - Planned
+- 📋 **CogVideoX-Flash** - Planned
+
 ## 🎮 PowerShell Studio Menu
 
 Run `.\AI-Cat-News-Studio.ps1` to access:
