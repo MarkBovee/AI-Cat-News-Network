@@ -1,209 +1,203 @@
 # 🐱 AI Cat News Network
 
-**Professional news content creation with AI-powered cat anchors for viral social media videos**
+**AI-powered cat news anchors creating viral social media content with real news stories and feline commentary**
 
-## 🆕 Multi-Provider Video Generation
+## � What This Does
 
-### Supported Video Generation Providers
+Transform real news into entertaining cat commentary videos perfect for:
+- 📱 **YouTube Shorts** (vertical 9:16 format)
+- 📸 **Instagram Reels** (optimized for engagement)
+- 🎵 **TikTok** (viral-ready content)
 
-#### 🆓 Google Veo 3 (Recommended for Testing)
-- **Free tier available** through Google AI Studio
-- High-quality video generation
-- 9:16 aspect ratio support for social media
-- Easy setup with Google account
+Our AI cats report on actual human news with hilarious feline perspective, superior attitude, and professional news anchor format.
 
-#### 💼 MiniMax (HailuoAI)
-- Professional paid API service
-- Reliable text-to-video generation
-- Multiple duration options
-- Established provider
+## � Quick Start
 
-## 🚀 Quick Start
-
-### 1. Choose Your Video Provider
-
-**For Free Testing (Recommended):**
-```bash
-# Get Google API key from https://ai.google.dev/
-# Add to .env file:
-GOOGLE_API_KEY=your_google_api_key_here
-```
-
-**For Production/Paid Service:**
-```bash
-# Get MiniMax API key from https://www.minimaxi.com/
-# Add to .env file:
-MINIMAX_API_KEY=your_minimax_api_key_here
-```
-
-### 2. Run the Setup
-
+### 1. Setup & Launch
 ```powershell
-# Windows PowerShell
+# Windows - Run the PowerShell Studio
 .\AI-Cat-News-Studio.ps1
 ```
 
-### 3. Try the Demos
+This automatically:
+- ✅ Checks Python installation
+- ✅ Creates/activates virtual environment
+- ✅ Installs all dependencies (CrewAI 0.175.0, ElevenLabs, etc.)
+- ✅ Shows interactive menu with 12 options
 
-- **Option 2**: Google Veo 3 Demo (Free)
-- **Option 1**: MiniMax Demo (Paid)
-- **Option 3**: Compare Both Providers
+### 2. Test the Pipeline
 
-## 🎬 Features
+**Start Simple (Recommended):**
+- **Option 4**: Quick Cat News Test → Generates script from real news
+- **Option 6**: Test Voice Generation → Creates professional voice-over
+- **Option 12**: Browse Content → See your organized files
 
-- **AI Script Generation**: Powered by Groq (fast & free)
-- **Dual Video Providers**: Choose between Google Veo 3 and MiniMax
-- **Voice Generation**: ElevenLabs integration
-- **Social Media Optimized**: 9:16 vertical format
-- **Cat News Personalities**: Multiple anchor characters
-- **Complete Production Workflow**: Script → Video → Voice → Package
-
-## 📋 Setup Requirements
-
-### Required Environment Variables
-
-```bash
-# AI Script Generation (Free)
-GROQ_API_KEY=your_groq_api_key
-
-# Video Generation (Choose one or both)
-GOOGLE_API_KEY=your_google_api_key      # Free tier available
-MINIMAX_API_KEY=your_minimax_api_key    # Paid service
-
-# Voice Generation (Optional)
-ELEVENLABS_API_KEY=your_elevenlabs_key
-ELEVENLABS_VOICE_ID=your_voice_id
-```
-
-### Installation
-
-```bash
-# Clone repository
-git clone https://github.com/yourusername/AI-Cat-News-Network.git
-cd AI-Cat-News-Network
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run setup
-.\AI-Cat-News-Studio.ps1
-```
-
-## 🔍 Provider Comparison
-
-| Feature | Google Veo 3 | MiniMax |
-|---------|-------------|---------|
-| **Pricing** | Free tier + paid | Paid only |
-| **Quality** | High | High |
-| **Setup** | Easy (Google account) | API signup required |
-| **Best For** | Testing, development | Production |
-| **Format Support** | 9:16 vertical | 9:16 vertical |
-
-## 🎯 Cat News Content
-
-### Anchor Personalities
-- **Whiskers Winston**: Professional, slightly sarcastic
-- **Fluffy McDouglas**: Serious journalist with playful moments  
-- **Mittens McReporter**: Energetic field reporter
-
-### Content Categories
-- Technology and AI developments
-- Environmental and climate news
-- Social media platform changes
-- Economic market updates
-- Space exploration discoveries
-- Entertainment industry news
+**Advanced Testing:**
+- **Option 1**: MiniMax Video Generation (Paid API)
+- **Option 2**: Google Veo 3 Video Generation (Free Tier)
+- **Option 11**: Full Agent Framework Workflow
 
 ## 📁 Project Structure
 
 ```
 AI-Cat-News-Network/
-├── scripts/                    # Python execution scripts
-│   ├── veo3_video_demo.py     # Google Veo 3 demo
-│   ├── ai_video_generator_demo.py  # MiniMax demo
-│   ├── provider_comparison.py  # Compare providers
-│   └── ...
-├── tools/                     # Core tools and utilities
-│   ├── unified_video_generator.py  # Multi-provider video generation
-│   ├── ai_video_generator.py      # MiniMax integration
-│   └── content_tools.py           # Content creation tools
-├── config/                    # Configuration and settings
-├── agents/                    # AI agent definitions
-├── tasks/                     # Task definitions
-├── workflows/                 # Workflow orchestration
-├── content/                   # Generated content storage
-└── output/                    # Final output packages
+├── AI-Cat-News-Studio.ps1     # 🎛️ Main PowerShell interface
+├── content/                   # 📦 All generated content (organized)
+│   ├── newsitems/            # 📰 Real news stories selected
+│   ├── scripts/              # 📝 Generated cat news scripts  
+│   ├── audio/                # 🎤 Voice-over files
+│   └── video/                # 🎬 Final video productions
+├── scripts/                  # 🔧 Individual test scripts
+├── agents/                   # 🤖 CrewAI agent definitions
+├── tools/                    # ⚙️ AI video generation tools
+├── config/                   # ⚙️ AI provider settings
+└── utils/                    # 🛠️ Content management utilities
 ```
 
-## 🔧 Development
+## 🎬 Content Production Pipeline
 
-### Running Tests
-```bash
-# Test AI setup
-python scripts/test_groq_setup.py
+### 1. News Selection & Script Generation
+- **Real News Sources**: Curated actual news stories (corgis racing, AI developments, etc.)
+- **Cat Commentary**: Professional news format with feline superiority complex
+- **AI Generation**: Powered by Groq AI (Llama 3.1 70B model)
+- **Viral Optimization**: Hook + Story + Impact + Cat sign-off structure
 
-# Test voice generation
-python scripts/test_voice.py
+### 2. Voice Generation
+- **ElevenLabs Integration**: Professional AI voice-over
+- **News Anchor Voice**: Authoritative yet playful cat personality
+- **Automatic Processing**: Reads scripts and generates high-quality audio
 
-# Compare video providers
-python scripts/provider_comparison.py
+### 3. Video Creation
+- **Multiple Providers**: Choose Google Veo 3 (free) or MiniMax (paid)
+- **Social Media Format**: Vertical 9:16 optimized for TikTok/Reels/Shorts
+- **Professional Output**: Complete video packages ready for upload
+
+## 🎮 PowerShell Studio Menu
+
+Run `.\AI-Cat-News-Studio.ps1` to access:
+
+```
+1. 🎬 MiniMax Video Generator Demo (Paid API)
+2. 🆕 Google Veo 3 Video Generator Demo (Free Tier)
+3. 🔍 Compare Video Providers 
+4. 📰 Quick Cat News Test (Generate script from real news)
+5. 🧪 Test Groq AI Setup
+6. 🎤 Test Voice Generation  
+7. 🚀 Full Production Demo - MiniMax
+8. 🚀 Full Production Demo - Veo 3
+9. 🧪 Integration Test (All Systems)
+10. � Test Individual Components
+11. 🧬 Test Agent Framework (CrewAI workflow)
+12. 📁 Browse Content Structure (View organized files)
 ```
 
-### Creating Custom Content
-```python
-from tools.unified_video_generator import generate_cat_news_video
+## 🔧 Configuration
 
-# Generate with Google Veo 3 (free)
-result = generate_cat_news_video(
-    "A cat reporting on space exploration", 
-    provider="veo3",
-    duration=30
-)
+### Required API Keys
 
-# Generate with MiniMax (paid)
-result = generate_cat_news_video(
-    "A cat reporting on tech news",
-    provider="minimax", 
-    duration=30
-)
+Create a `.env` file in the project root:
+
+```env
+# Primary AI Provider (Free and Fast)
+GROQ_API_KEY=your_groq_api_key_here
+
+# Video Generation Providers
+GOOGLE_API_KEY=your_google_api_key_here      # Free tier available
+MINIMAX_API_KEY=your_minimax_api_key_here    # Professional paid service
+
+# Voice Generation
+ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
+ELEVENLABS_VOICE_ID=your_preferred_voice_id
+
+# Optional: Video Upload Integration
+YOUTUBE_API_KEY=your_youtube_api_key_here
 ```
 
-## 💡 Tips & Best Practices
+### Getting API Keys
 
-1. **Start with Google Veo 3** for free testing and development
-2. **Use both providers** to compare quality and choose the best fit
-3. **Test different prompts** to find what works best for each provider
-4. **Keep prompts detailed** for better video generation results
-5. **Use 9:16 aspect ratio** for optimal social media performance
+- **Groq**: Free at [console.groq.com](https://console.groq.com)
+- **Google Veo 3**: Free tier at [ai.google.dev](https://ai.google.dev)
+- **MiniMax**: Paid service at [minimaxi.com](https://www.minimaxi.com)
+- **ElevenLabs**: Voice generation at [elevenlabs.io](https://elevenlabs.io)
 
-## 🆘 Support
+## 🏗️ Technical Architecture
 
-### Common Issues
+### CrewAI Framework (v0.175.0)
+- **Multi-Agent System**: Coordinated AI agents for content creation
+- **Task Management**: Automated workflow from news to video
+- **Tool Integration**: Unified interface for all AI services
 
-**Video Generation Fails:**
-- Check API key configuration
-- Verify internet connection
-- Try the provider comparison tool
+### Content Management
+- **Organized Structure**: Automatic file organization by content type
+- **Metadata Tracking**: Complete information about generation settings
+- **Pipeline Linking**: Files automatically linked across production stages
+- **Scalable Storage**: Ready for hundreds of videos
 
-**Poor Video Quality:**
-- Refine your prompts with more detail
-- Try the alternative provider
-- Adjust duration settings
+### AI Providers
+- **Script Generation**: Groq AI (fast, free, reliable)
+- **Video Creation**: Google Veo 3 + MiniMax (multiple options)
+- **Voice Synthesis**: ElevenLabs (professional quality)
 
-### Getting Help
-- Check the provider comparison tool
-- Review demo scripts for examples
-- Ensure all API keys are properly configured
+## 📊 Content Examples
 
-## 📈 Roadmap
+### Real News Stories We Cover
+- "Dozens of corgis compete for racing and costume titles in Lithuania"
+- "Scientists discover new species of deep-sea fish with glowing fins"
+- "Marathon runner completes race while juggling for entire 26.2 miles"
+- "Artist creates massive sand sculpture visible from space"
 
-- [ ] Additional video providers (Runway, Pika Labs)
-- [ ] Advanced prompt templates
-- [ ] Automated social media posting
-- [ ] Analytics and performance tracking
-- [ ] Voice cloning for consistent anchors
-- [ ] Multi-language support
+### Cat Commentary Style
+- **Professional Format**: News anchor intro/main/outro structure
+- **Feline Perspective**: Superior attitude with humorous observations
+- **Viral Elements**: Puns, relatable content, engaging hooks
+- **Social Media Ready**: 20-30 second format perfect for shorts
 
----
+## 🚀 Getting Started
 
-**Ready to create viral cat news content? Start with Google Veo 3's free tier today!** 🚀🐱
+### Windows Users
+```powershell
+# 1. Clone the repository
+git clone https://github.com/MarkBovee/AI-Cat-News-Network.git
+cd AI-Cat-News-Network
+
+# 2. Run the PowerShell studio
+.\AI-Cat-News-Studio.ps1
+
+# 3. Start with option 4 (Quick Cat News Test)
+# Then try option 6 (Voice Generation)
+# Finally explore option 12 (Content Browser)
+```
+
+### Testing the Pipeline
+1. **Start Simple**: Option 4 → Generates script from real news
+2. **Add Voice**: Option 6 → Creates professional voice-over  
+3. **View Results**: Option 12 → Browse your organized content
+4. **Go Advanced**: Options 1-2 → Full video generation
+
+## 📈 Project Status
+
+✅ **Working Features**:
+- Real news script generation with cat commentary
+- ElevenLabs voice generation (modern API)
+- Organized content structure with metadata
+- PowerShell studio interface with 12 options
+- CrewAI framework updated to latest version (0.175.0)
+- Content browser and pipeline tracking
+
+🚧 **In Development**:
+- Video generation integration testing
+- Automated social media posting
+- Multiple cat anchor personalities
+- Batch content creation workflows
+
+## 🤝 Contributing
+
+This project uses:
+- **CrewAI 0.175.0** for multi-agent workflows
+- **Python 3.13** with virtual environment
+- **PowerShell** for Windows integration
+- **Git-crypt** for secure API key storage
+
+## 📄 License
+
+MIT License - Create as many cat news videos as your heart desires! 🐱📺
