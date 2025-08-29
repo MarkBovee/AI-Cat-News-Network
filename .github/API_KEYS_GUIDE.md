@@ -48,12 +48,9 @@ GOOGLE_API_KEY=your_google_api_key_here
 | `YOUTUBE_API_KEY` | YouTube | 🆓 Free | Auto-upload to YouTube | Optional |
 | `INSTAGRAM_ACCESS_TOKEN` | Instagram | 🆓 Free | Auto-upload to Instagram | Optional |
 
-### 🤖 **Alternative AI Providers**
+### 🤖 **AI Provider - Simplified Setup**
 
-| API Key | Service | Cost | Purpose | Priority |
-|---------|---------|------|---------|----------|
-| `OPENAI_API_KEY` | OpenAI | 💰 Paid | Alternative script AI | Optional |
-| `ANTHROPIC_API_KEY` | Anthropic | 💰 Paid | Alternative script AI | Optional |
+*OpenAI and Anthropic providers removed for a cleaner, focused setup using Groq only.*
 
 ## 🆓 **Free Tier Setup (Recommended Start)**
 

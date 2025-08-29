@@ -1,7 +1,6 @@
 import os
 from typing import Optional, Dict, Any
 from groq import Groq
-import openai
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -9,44 +8,25 @@ load_dotenv()
 
 class AIProviderManager:
     """
-    Manages different AI providers (Groq, OpenAI, etc.) with a unified interface.
-    Optimized for Groq as the default fast and free option.
+    Manages Groq AI provider for fast and free content generation.
+    Simplified setup focusing on Groq only for cleaner architecture.
     """
     
     def __init__(self):
-        self.provider = os.getenv('AI_PROVIDER', 'groq').lower()
-        self.model = self._get_default_model()
+        self.provider = 'groq'
+        self.model = os.getenv('AI_MODEL', 'llama3-70b-8192')
         self.client = self._initialize_client()
     
-    def _get_default_model(self) -> str:
-        """Get the default model for the selected provider."""
-        models = {
-            'groq': os.getenv('AI_MODEL', 'llama3-70b-8192'),
-            'openai': os.getenv('AI_MODEL', 'gpt-4'),
-            'anthropic': os.getenv('AI_MODEL', 'claude-3-sonnet-20240229')
-        }
-        return models.get(self.provider, 'llama3-70b-8192')
-    
     def _initialize_client(self):
-        """Initialize the appropriate AI client."""
-        if self.provider == 'groq':
-            api_key = os.getenv('GROQ_API_KEY')
-            if not api_key:
-                raise ValueError("GROQ_API_KEY not found in environment variables")
-            return Groq(api_key=api_key)
-        
-        elif self.provider == 'openai':
-            api_key = os.getenv('OPENAI_API_KEY')
-            if not api_key:
-                raise ValueError("OPENAI_API_KEY not found in environment variables")
-            return openai.OpenAI(api_key=api_key)
-        
-        else:
-            raise ValueError(f"Unsupported AI provider: {self.provider}")
+        """Initialize the Groq AI client."""
+        api_key = os.getenv('GROQ_API_KEY')
+        if not api_key:
+            raise ValueError("GROQ_API_KEY not found in environment variables")
+        return Groq(api_key=api_key)
     
     def generate_content(self, prompt: str, max_tokens: int = 1000, temperature: float = 0.7) -> str:
         """
-        Generate content using the configured AI provider.
+        Generate content using Groq AI.
         
         Args:
             prompt: The input prompt
@@ -57,27 +37,17 @@ class AIProviderManager:
             Generated content as string
         """
         try:
-            if self.provider == 'groq':
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=max_tokens,
-                    temperature=temperature
-                )
-                return response.choices[0].message.content
-            
-            elif self.provider == 'openai':
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=max_tokens,
-                    temperature=temperature
-                )
-                return response.choices[0].message.content
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=max_tokens,
+                temperature=temperature
+            )
+            return response.choices[0].message.content
             
         except Exception as e:
-            print(f"Error generating content with {self.provider}: {str(e)}")
-            return "Error: Could not generate content. Please check your API configuration."
+            print(f"Error generating content with Groq: {str(e)}")
+            return "Error: Could not generate content. Please check your Groq API configuration."
     
     def get_provider_info(self) -> Dict[str, Any]:
         """Get information about the current provider."""

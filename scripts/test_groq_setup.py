@@ -33,7 +33,7 @@ def test_groq_setup():
         print("6. Replace 'your_groq_api_key_here' with your actual key")
         print("\n💡 Groq offers:")
         print("   - Free tier with generous limits")
-        print("   - Very fast inference (faster than OpenAI)")
+        print("   - Very fast inference")
         print("   - Great models like Llama 3.1 70B")
         return False
     
