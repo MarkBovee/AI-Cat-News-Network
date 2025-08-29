@@ -28,8 +28,9 @@ if ($Help) {
     Write-Host "Options:" -ForegroundColor Cyan
     Write-Host "  1     📰 Generate Cat News Script (Real News + Cat Commentary)" -ForegroundColor White
     Write-Host "  2     🎤 Generate Voice-Over (From Latest Script)" -ForegroundColor White
-    Write-Host "  3     🎬 Create Video with Veo 3 (Complete Production)" -ForegroundColor Green
-    Write-Host "  4     📁 Browse Content Structure (View All Content)" -ForegroundColor Blue
+    Write-Host "  3     🎬 Create Video Metadata with Veo 3 (Preparation)" -ForegroundColor Green
+    Write-Host "  4     🎥 Generate REAL Video with Veo 3 (API Call)" -ForegroundColor Magenta
+    Write-Host "  5     📁 Browse Content Structure (View All Content)" -ForegroundColor Blue
     Write-Host ""
     Write-Host "Flags:" -ForegroundColor Cyan
     Write-Host "  -clean    🧹 Clean old content files after operation" -ForegroundColor Yellow
@@ -37,8 +38,8 @@ if ($Help) {
     Write-Host ""
     Write-Host "Examples:" -ForegroundColor Cyan
     Write-Host "  .\AI-Cat-News-Studio.ps1 1        # Generate script only" -ForegroundColor Gray
-    Write-Host "  .\AI-Cat-News-Studio.ps1 4        # Browse content only" -ForegroundColor Gray
-    Write-Host "  .\AI-Cat-News-Studio.ps1 2 -clean # Generate voice then clean" -ForegroundColor Gray
+    Write-Host "  .\AI-Cat-News-Studio.ps1 5        # Browse content only" -ForegroundColor Gray
+    Write-Host "  .\AI-Cat-News-Studio.ps1 4 -clean # Generate real video then clean" -ForegroundColor Gray
     Write-Host "  .\AI-Cat-News-Studio.ps1 -clean   # Clean content only" -ForegroundColor Gray
     Write-Host ""
     exit 0
@@ -150,13 +151,14 @@ if ($Option -eq "") {
     Write-Host "Available AI Cat News Network Options:" -ForegroundColor Cyan
     Write-Host "1. 📰 Generate Cat News Script (Real News + Cat Commentary)" -ForegroundColor White  
     Write-Host "2. 🎤 Generate Voice-Over (From Latest Script)" -ForegroundColor White
-    Write-Host "3. 🎬 Create Video with Veo 3 (Complete Production)" -ForegroundColor Green
-    Write-Host "4. 📁 Browse Content Structure (View All Content)" -ForegroundColor Blue
+    Write-Host "3. 🎬 Create Video with Veo 3 (Metadata Preparation)" -ForegroundColor Green
+    Write-Host "4. 🎥 Generate REAL Video with Veo 3 (API Call)" -ForegroundColor Magenta
+    Write-Host "5. 📁 Browse Content Structure (View All Content)" -ForegroundColor Blue
     Write-Host ""
-    Write-Host "💡 Tip: Use parameters for automation! Example: .\AI-Cat-News-Studio.ps1 4" -ForegroundColor Yellow
+    Write-Host "💡 Tip: Use parameters for automation! Example: .\AI-Cat-News-Studio.ps1 5" -ForegroundColor Yellow
     Write-Host ""
 
-    $Option = Read-Host "Enter your choice (1-4)"
+    $Option = Read-Host "Enter your choice (1-5)"
 }
 
 # Execute the chosen option
@@ -170,15 +172,19 @@ switch ($Option) {
         & $pythonCmd scripts\test_voice.py
     }
     "3" {
-        Write-Host "🎬 Creating Video with Veo 3..." -ForegroundColor Green
+        Write-Host "🎬 Creating Video Metadata with Veo 3..." -ForegroundColor Green
         & $pythonCmd scripts\create_video_veo3.py
     }
     "4" {
+        Write-Host "🎥 Generating REAL Video with Veo 3..." -ForegroundColor Magenta
+        & $pythonCmd scripts\create_real_veo3_video.py
+    }
+    "5" {
         Write-Host "📁 Browsing Content Structure..." -ForegroundColor Blue
         & $pythonCmd scripts\content_browser.py
     }
     default {
-        Write-Host "❌ Invalid choice '$Option'. Valid options: 1, 2, 3, 4" -ForegroundColor Red
+        Write-Host "❌ Invalid choice '$Option'. Valid options: 1, 2, 3, 4, 5" -ForegroundColor Red
         Write-Host "💡 Use -help for usage information" -ForegroundColor Yellow
         exit 1
     }

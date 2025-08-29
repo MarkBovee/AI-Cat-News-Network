@@ -11,7 +11,8 @@
 .\AI-Cat-News-Studio.ps1 1    # Generate script
 .\AI-Cat-News-Studio.ps1 2    # Generate voice
 .\AI-Cat-News-Studio.ps1 3    # Generate video metadata
-.\AI-Cat-News-Studio.ps1 4    # Browse content
+.\AI-Cat-News-Studio.ps1 4    # Generate REAL video with Veo 3
+.\AI-Cat-News-Studio.ps1 5    # Browse content
 ```
 
 ### Content Management
@@ -46,11 +47,14 @@
 # Generate voice with cleanup
 .\AI-Cat-News-Studio.ps1 2 -clean
 
-# Generate video metadata with cleanup  
-.\AI-Cat-News-Studio.ps1 3 -clean
+# Generate video metadata  
+.\AI-Cat-News-Studio.ps1 3
+
+# Generate REAL video with Veo 3
+.\AI-Cat-News-Studio.ps1 4 -clean
 
 # Check final result
-.\AI-Cat-News-Studio.ps1 4
+.\AI-Cat-News-Studio.ps1 5
 ```
 
 ### Quick Testing
