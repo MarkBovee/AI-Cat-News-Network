@@ -2,7 +2,14 @@
 
 **AI-powered cat news anchors creating viral social media content with real news stories and feline commentary**
 
-## � What This Does
+## ⚠️ CRITICAL PROJECT RULE: NO MOVIEPY EVER
+**MOVIEPY IS COMPLETELY FORBIDDEN** - This project uses AI video generation only:
+- ✅ MiniMax Hailuo AI Video Generation
+- ✅ Runway ML Gen-4 AI Video Generation  
+- ✅ HunyuanVideo via Wan2GP Local AI Generation
+- ❌ **NEVER MoviePy or any local video editing libraries**
+
+## 🎯 What This Does
 
 Transform real news into entertaining cat commentary videos perfect for:
 - 📱 **YouTube Shorts** (vertical 9:16 format)

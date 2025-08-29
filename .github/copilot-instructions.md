@@ -2,11 +2,15 @@
 
 ## Development Rules for AI Cat News Network
 
-### 🚫 No Fallback Approach Rule
-- **NEVER use fallback approaches or workarounds** when encountering import errors or dependency issues
+### 🚫 CRITICAL: NO FALLBACK APPROACH RULE - NEVER USE MOVIEPY
+- **ABSOLUTELY FORBIDDEN: MoviePy usage is completely banned from this project**
+- **NEVER use MoviePy as a fallback** when video generation APIs fail
+- **NEVER suggest MoviePy** as an alternative to proper video generation
 - **ALWAYS fix the root cause** of import problems by installing dependencies and correcting import paths
 - **DO NOT suggest alternative approaches** without first attempting to resolve the actual technical issue
 - **Fix dependencies properly** rather than creating simplified versions or placeholder implementations
+- **Video generation MUST use AI providers**: MiniMax Hailuo, Runway ML, HunyuanVideo via Wan2GP
+- **NO local video libraries allowed** - this defeats the entire purpose of AI video generation
 
 ### 🐱 Project Context
 - This is a CrewAI Python project for AI agents automating content creation for YouTube Shorts and Instagram Reels
@@ -16,7 +20,7 @@
 ### 🔧 Technical Requirements
 - Use Groq API for fast, free AI content generation (Llama 3.1 70B model)
 - ElevenLabs for professional voice-over generation
-- MoviePy for video creation and editing
+- **AI VIDEO GENERATION ONLY**: MiniMax Hailuo, Runway ML, HunyuanVideo via Wan2GP
 - CrewAI framework for multi-agent workflow coordination
 - All dependencies must be properly installed and working - no shortcuts or workarounds
 
