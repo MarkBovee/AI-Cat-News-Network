@@ -9,7 +9,7 @@
 
 param(
     [Parameter(Position=0)]
-    [string]$Option = "",
+    [string]$Option = $null,
     
     [Parameter()]
     [switch]$Clean = $false,
@@ -147,7 +147,7 @@ if ($Clean -and $Option -eq "") {
 }
 
 # If no option provided, show interactive menu
-if ($Option -eq "") {
+if ($Option -eq $null -or $Option -eq "") {
     Write-Host "Available AI Cat News Network Options:" -ForegroundColor Cyan
     Write-Host "1. 📰 Generate Cat News Script (Real News + Cat Commentary)" -ForegroundColor White  
     Write-Host "2. 🎤 Generate Voice-Over (From Latest Script)" -ForegroundColor White
