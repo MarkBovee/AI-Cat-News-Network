@@ -1,236 +1,218 @@
 #!/usr/bin/env python3
 """
-Google Veo 3 Video Generator for AI Cat News Network
-Creates real videos using Google Veo 3 model with professional cat news content
+Google Veo 2 Video Generator - AI Cat News Network
+Generate professional videos using Google's Veo 2 API via Vertex AI
 """
+
 import os
-import sys
-import json
 import time
-from dotenv import load_dotenv
+import json
+import requests
+from pathlib import Path
+from datetime import datetime
+import subprocess
 
-# Add the parent directory to sys.path so we can import utils
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+def load_env_config():
+    """Load configuration from .env file"""
+    config = {}
+    env_path = Path(".env")
+    
+    if env_path.exists():
+        with open(env_path, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, value = line.split('=', 1)
+                    config[key.strip()] = value.strip()
+    
+    return config
 
-from utils.content_manager import content_manager
-
-load_dotenv()
-
-def generate_veo3_video():
-    """Generate real video using Google Veo 3 model"""
-    print("🎬 Google Veo 3 Video Generator - AI Cat News Network")
-    print("=" * 60)
-    
-    # Check for Google API key
-    google_api_key = os.getenv('GOOGLE_API_KEY')
-    if not google_api_key:
-        print("❌ GOOGLE_API_KEY not found in environment variables")
-        print("💡 Add your Google AI Studio API key to .env file")
-        print("🔗 Get your key from: https://ai.google.dev/")
-        return False
-    
-    print(f"🔑 Google API Key: ✅ Found")
-    
-    # Get latest content
-    latest_scripts = content_manager.get_latest_files("scripts", limit=1)
-    latest_audio = content_manager.get_latest_files("audio", limit=1)
-    
-    if not latest_scripts:
-        print("❌ No scripts found. Run script generation first.")
-        return False
-    
-    if not latest_audio:
-        print("❌ No audio files found. Run voice generation first.")
-        return False
-    
-    script_path = latest_scripts[0]["filepath"]
-    audio_path = latest_audio[0]["filepath"]
-    
-    print(f"📝 Using script: {os.path.basename(script_path)}")
-    print(f"🎤 Using audio: {os.path.basename(audio_path)}")
-    
-    # Read script content
-    with open(script_path, 'r', encoding='utf-8') as f:
-        script_content = f.read()
-    
-    # Extract topic
-    lines = script_content.split('\n')
-    topic = ""
-    for line in lines:
-        if line.startswith("Topic:"):
-            topic = line.replace("Topic:", "").strip()
-            break
-    
-    if not topic:
-        topic = "Cat News Report"
-    
-    print(f"🎯 Topic: {topic}")
-    
-    # Get audio duration
+def get_access_token():
+    """Get Google Cloud access token using gcloud CLI"""
     try:
-        from mutagen.mp3 import MP3
-        audio = MP3(audio_path)
-        audio_duration = audio.info.length
-        print(f"⏱️  Audio duration: {audio_duration:.1f} seconds")
-    except:
-        audio_duration = 22  # Default fallback
-        print(f"⚠️  Could not detect audio duration, using {audio_duration}s default")
-    
-    # Create professional video prompt for Veo 3
-    video_prompt = f"""Professional cat news anchor reporting: {topic}
-
-Scene: Modern news studio with a sophisticated orange tabby cat sitting behind a sleek news desk. The cat is wearing a tiny professional news tie. Studio has CNN-style lighting with blue and white color scheme. News ticker running at bottom of screen.
-
-Action: Cat maintains serious news anchor posture while occasionally displaying subtle cat behaviors - ear twitches, head tilts, brief grooming gestures. Professional studio lighting creates a broadcast-quality appearance. Professional pacing with natural cat behaviors and subtle reactions.
-
-Style: High-definition broadcast quality, professional news studio aesthetic, 16:9 aspect ratio, stable camera work, realistic lighting and shadows.
-
-Duration: {audio_duration:.0f} seconds - optimal length for Instagram Reels and YouTube Shorts."""
-    
-    print(f"📝 Video prompt: {len(video_prompt)} characters")
-    
-    try:
-        # Import and configure Google Generative AI
-        import google.generativeai as genai
-        
-        genai.configure(api_key=google_api_key)
-        print(f"🔄 Connected to Google AI...")
-        
-        # Check available models for video generation
-        print(f"🔍 Checking available video models...")
-        
-        models = genai.list_models()
-        video_models = []
-        
-        for model in models:
-            if 'video' in model.name.lower() or 'veo' in model.name.lower():
-                video_models.append(model.name)
-                print(f"   📹 Found video model: {model.name}")
-        
-        if not video_models:
-            print("⚠️  No video generation models found in available models")
-            print("💡 Veo 3 might not be publicly available yet")
-            return simulate_veo3_generation(video_prompt, audio_duration, topic, script_path, audio_path)
-        
-        # Try to use the best available video model
-        video_model_name = video_models[0]
-        print(f"🎬 Using model: {video_model_name}")
-        
-        # Initialize the model
-        model = genai.GenerativeModel(video_model_name)
-        
-        print(f"🎯 Generating video...")
-        print(f"📊 Prompt: {video_prompt[:100]}...")
-        print(f"⏳ This may take 30-60 seconds...")
-        
-        # Generate video
-        response = model.generate_content(
-            video_prompt,
-            generation_config=genai.GenerationConfig(
-                temperature=0.7,
-                max_output_tokens=1000,
-            )
+        result = subprocess.run(
+            [r'C:\Users\markb\scoop\shims\gcloud.cmd', 'auth', 'print-access-token'],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10
         )
+        token = result.stdout.strip()
+        print(f"✅ Using gcloud access token: {token[:20]}...")
+        return token
         
-        print(f"✅ Google Veo 3 video generation successful!")
-        print(f"📤 Response: {response.text[:200]}...")
-        
-        # Save result
-        video_result = {
-            "timestamp": time.strftime("%Y%m%d_%H%M%S"),
-            "service": "Google-Veo3",
-            "model": video_model_name,
-            "prompt": video_prompt,
-            "audio_duration": audio_duration,
-            "api_response": response.text,
-            "status": "generated",
-            "script_path": script_path,
-            "audio_path": audio_path,
-            "topic": topic
-        }
-        
-        result_timestamp = time.strftime("%Y%m%d_%H%M%S")
-        result_path = os.path.join("content/video", f"veo3_video_result_{result_timestamp}.json")
-        
-        with open(result_path, 'w', encoding='utf-8') as f:
-            json.dump(video_result, f, indent=2, ensure_ascii=False)
-        
-        print(f"📄 Result saved: {os.path.basename(result_path)}")
-        
-        return True
-        
-    except ImportError:
-        print("❌ google-generativeai package not installed")
-        print("💡 Install with: pip install google-generativeai")
-        return False
     except Exception as e:
-        print(f"❌ Error during video generation: {e}")
-        print(f"🔄 Falling back to simulation mode...")
-        return simulate_veo3_generation(video_prompt, audio_duration, topic, script_path, audio_path)
+        print(f"❌ Could not get gcloud access token: {e}")
+        return None
 
-def simulate_veo3_generation(video_prompt, audio_duration, topic, script_path, audio_path):
-    """Simulate Veo 3 video generation for when API is not available"""
-    print(f"\n🎭 Simulating Google Veo 3 Video Generation...")
-    print(f"📋 This simulation shows what would happen with real Veo 3 API access")
+def get_project_id():
+    """Get Google Cloud project ID"""
+    try:
+        result = subprocess.run(
+            [r'C:\Users\markb\scoop\shims\gcloud.cmd', 'config', 'get-value', 'project'],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10
+        )
+        project_id = result.stdout.strip()
+        print(f"📋 Using project: {project_id}")
+        return project_id
+        
+    except Exception as e:
+        print(f"❌ Could not get project ID: {e}")
+        return None
+
+def create_veo_video(prompt, access_token, project_id, model_id="veo-2"):
+    """Generate video using Google Veo 2 API via Vertex AI"""
     
-    # Simulate processing time
-    for i in range(3):
-        print(f"⏳ Processing frame {i+1}/3... ({(i+1)*33}%)")
-        time.sleep(1)
+    if not access_token or not project_id:
+        return None
     
-    # Create simulated video result
-    simulated_result = {
-        "timestamp": time.strftime("%Y%m%d_%H%M%S"),
-        "service": "Google-Veo3-Simulation",
-        "model": "veo-3-simulation",
-        "prompt": video_prompt,
-        "audio_duration": audio_duration,
-        "simulated_video_url": f"https://storage.googleapis.com/veo3-simulation/cat_news_{topic.replace(' ', '_').lower()}.mp4",
-        "status": "simulated",
-        "note": "This is a simulation - replace with real Veo 3 API when available",
-        "script_path": script_path,
-        "audio_path": audio_path,
-        "topic": topic
+    # API endpoint
+    url = f"https://us-central1-aiplatform.googleapis.com/v1/projects/{project_id}/locations/us-central1/publishers/google/models/{model_id}:predictLongRunning"
+    
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json; charset=utf-8"
     }
     
-    # Save simulated result
-    result_timestamp = time.strftime("%Y%m%d_%H%M%S")
-    result_path = os.path.join("content/video", f"veo3_simulation_{result_timestamp}.json")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    with open(result_path, 'w', encoding='utf-8') as f:
-        json.dump(simulated_result, f, indent=2, ensure_ascii=False)
+    payload = {
+        "instances": [
+            {
+                "prompt": prompt
+            }
+        ],
+        "parameters": {
+            "aspectRatio": "9:16",
+            "durationSeconds": 8,
+            "resolution": "1080p",
+            "sampleCount": 1,
+            "enhancePrompt": True,
+            "generateAudio": True,
+            "personGeneration": "allow_adult"
+        }
+    }
     
-    print(f"✅ Simulation completed!")
-    print(f"📄 Simulated result: {os.path.basename(result_path)}")
-    print(f"🎬 In production, this would be a real MP4 video file")
-    print(f"⏱️  Expected duration: {audio_duration:.1f} seconds")
+    print(f"🚀 Sending request to Veo 3.0...")
+    print(f"📝 Prompt: {prompt[:100]}...")
+    print(f"⚙️ Model: {model_id}")
+    print(f"📐 Format: 9:16 vertical, 1080p, 8 seconds")
     
-    return True
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        
+        print(f"📡 Response status: {response.status_code}")
+        
+        if response.status_code == 200:
+            operation_data = response.json()
+            operation_name = operation_data.get("name")
+            
+            if operation_name:
+                print(f"✅ Request accepted. Operation: {operation_name}")
+                print("⏳ Video generation started. This typically takes 5-10 minutes...")
+                
+                # Save operation info
+                metadata = {
+                    "timestamp": timestamp,
+                    "provider": "google_veo3",
+                    "model": model_id,
+                    "prompt": prompt,
+                    "operation_name": operation_name,
+                    "project_id": project_id,
+                    "status": "started",
+                    "check_command": f"gcloud ai operations describe {operation_name} --region=us-central1"
+                }
+                
+                output_dir = Path("output")
+                output_dir.mkdir(exist_ok=True)
+                
+                metadata_path = f"output/veo3_operation_{timestamp}.json"
+                with open(metadata_path, 'w', encoding='utf-8') as f:
+                    json.dump(metadata, f, indent=2)
+                
+                print(f"📊 Operation info saved: {metadata_path}")
+                print("🔍 You can check status with:")
+                print(f"   gcloud ai operations describe {operation_name} --region=us-central1")
+                
+                return metadata
+            else:
+                print("❌ No operation name returned")
+                return None
+        else:
+            print(f"❌ API request failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            return None
+        
+    except requests.exceptions.RequestException as e:
+        print(f"❌ API request failed: {e}")
+        return None
 
-def main():
-    success = generate_veo3_video()
+def get_latest_script():
+    """Get the latest script file"""
+    script_dir = Path("content/scripts")
+    if not script_dir.exists():
+        return None
     
-    if success:
-        print(f"\n🎉 Google Veo 3 video generation process completed!")
-        print(f"📱 Cat news video ready for social media platforms!")
-        
-        # Show updated pipeline status
-        print(f"\n📋 Updated Pipeline Status:")
-        latest_scripts = content_manager.get_latest_files("scripts", limit=1)
-        latest_audio = content_manager.get_latest_files("audio", limit=1)
-        video_files = [f for f in os.listdir("content/video") if f.endswith('.mp4')]
-        
-        print(f"   📰 News Items: ✅")
-        print(f"   📝 Scripts: ✅ {len(latest_scripts)} files")
-        print(f"   🎤 Audio Files: ✅ {len(latest_audio)} files") 
-        print(f"   🎬 Video Generation: ✅ Google Veo 3 processed")
-        print(f"   🎞️  MP4 Videos: {len(video_files)} files")
-        print(f"\n🚀 COMPLETE: News → Script → Audio → Professional Video! 🎬")
-        
+    script_files = list(script_dir.glob("*.txt"))
+    if script_files:
+        latest = max(script_files, key=lambda x: x.stat().st_mtime)
+        return latest
+    return None
+
+def create_veo3_cat_news():
+    """Main function to create Cat News video with Veo 3.0"""
+    
+    print("🌟 Google Veo 3.0 - AI Cat News Video Generator")
+    print("=" * 55)
+    
+    # Get access token from gcloud
+    access_token = get_access_token()
+    if not access_token:
+        print("❌ Could not get Google Cloud access token")
+        return None
+    
+    # Get project ID
+    project_id = get_project_id()
+    if not project_id:
+        print("❌ Could not get Google Cloud project ID")
+        return None
+    
+    # Get script content
+    script_path = get_latest_script()
+    if not script_path:
+        print("❌ No script found. Creating default content...")
+        script_content = "Breaking Cat News: Local tabby discovers ultimate napping spot"
     else:
-        print(f"\n❌ Video generation failed. Check API key and try again.")
-        print(f"💡 Verify your Google AI Studio API key in .env file")
-        print(f"🔗 Get API access: https://ai.google.dev/")
+        with open(script_path, 'r', encoding='utf-8') as f:
+            script_content = f.read()
+        print(f"📝 Using script: {script_path.name}")
+    
+    # Create professional cat news prompt for Veo 3.0
+    video_prompt = f"""Professional orange tabby cat news anchor wearing a navy blue business suit and red tie, sitting at a modern television news desk in a high-tech broadcast studio. The cat has intelligent amber eyes, perfectly groomed fur, and an authoritative yet friendly expression. Behind the cat are multiple large HD screens displaying "CAT NEWS NETWORK" in bold letters with breaking news graphics. The studio has warm, professional lighting with subtle blue and red accent colors. Modern broadcast equipment and cameras are visible in the background. The cat occasionally gestures with paws while delivering the news. Cinematic quality, broadcast television production value, professional news anchor presentation.
+
+News Story: {script_content[:200]}"""
+    
+    print(f"🎯 Generated professional prompt for Veo 3.0")
+    print(f"📺 Theme: Professional cat news broadcast")
+    print(f"🎬 Quality: Cinematic, broadcast-grade")
+    
+    # Generate video
+    result = create_veo_video(video_prompt, access_token, project_id)
+    
+    if result:
+        print("\n🎉 Veo 3.0 Cat News Video Generation Started!")
+        print("🎬 Professional AI-generated cat news broadcast")
+        print("📱 Optimized for social media (9:16 vertical)")
+        print("🔊 Audio generation included")
+        print("🎯 Broadcast quality for Cat News Network")
+        print("\n💡 Video will be ready in 5-10 minutes. Check status with the gcloud command above.")
+        return result
+    else:
+        print("\n❌ Video generation failed")
+        return None
 
 if __name__ == "__main__":
-    main()
+    create_veo3_cat_news()

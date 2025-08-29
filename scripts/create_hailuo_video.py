@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-HunyuanVideo Local Video Generator - AI Cat News Network
-Uses Wan2GP (WanGP) for local video generation without API dependencies
+MiniMax Hailuo Video Generator - AI Cat News Network
+Uses MiniMax Hailuo API for professional video generation
 """
 
 import os
