@@ -5,7 +5,11 @@ Run this test to check if Groq is working before setting up the API key.
 """
 
 import os
+import sys
 from dotenv import load_dotenv
+
+# Add the parent directory to sys.path so we can import config
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Load environment variables
 load_dotenv()
