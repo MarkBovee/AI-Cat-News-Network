@@ -29,9 +29,10 @@ if ($Help) {
     Write-Host "  1     📰 Generate Cat News Script (Real News + Cat Commentary)" -ForegroundColor White
     Write-Host "  2     🎤 Generate Voice-Over (From Latest Script)" -ForegroundColor White
     Write-Host "  3     🎬 Create Video Metadata with Veo 3 (Preparation)" -ForegroundColor Green
-    Write-Host "  4     🎥 Generate Video with MiniMax Hailuo (Professional AI)" -ForegroundColor Magenta
+    Write-Host "  4     🎥 Generate Video with MiniMax Hailuo (6s Professional)" -ForegroundColor Magenta
     Write-Host "  5     🎥 Generate Video with Google Veo 3 (Advanced AI)" -ForegroundColor Red
     Write-Host "  6     📁 Browse Content Structure (View All Content)" -ForegroundColor Blue
+    Write-Host "  7     🎬 Generate Video with Runway ML Gen-4 (Premium 30s)" -ForegroundColor Yellow
     Write-Host ""
     Write-Host "Flags:" -ForegroundColor Cyan
     Write-Host "  -clean    🧹 Clean old content files after operation" -ForegroundColor Yellow
@@ -42,6 +43,7 @@ if ($Help) {
     Write-Host "  .\AI-Cat-News-Studio.ps1 6        # Browse content only" -ForegroundColor Gray
     Write-Host "  .\AI-Cat-News-Studio.ps1 4 -clean # Generate MiniMax video then clean" -ForegroundColor Gray
     Write-Host "  .\AI-Cat-News-Studio.ps1 5 -clean # Generate Veo 3 video then clean" -ForegroundColor Gray
+    Write-Host "  .\AI-Cat-News-Studio.ps1 7 -clean # Generate Runway ML video then clean" -ForegroundColor Gray
     Write-Host "  .\AI-Cat-News-Studio.ps1 -clean   # Clean content only" -ForegroundColor Gray
     Write-Host ""
     exit 0
@@ -154,14 +156,15 @@ if ($Option -eq $null -or $Option -eq "") {
     Write-Host "1. 📰 Generate Cat News Script (Real News + Cat Commentary)" -ForegroundColor White  
     Write-Host "2. 🎤 Generate Voice-Over (From Latest Script)" -ForegroundColor White
     Write-Host "3. 🎬 Create Video with Veo 3 (Metadata Preparation)" -ForegroundColor Green
-    Write-Host "4. 🎥 Generate Video with MiniMax Hailuo (Professional AI)" -ForegroundColor Magenta
+    Write-Host "4. 🎥 Generate Video with MiniMax Hailuo (6s Professional)" -ForegroundColor Magenta
     Write-Host "5. 🎥 Generate Video with Google Veo 3 (Advanced AI)" -ForegroundColor Red
     Write-Host "6. 📁 Browse Content Structure (View All Content)" -ForegroundColor Blue
+    Write-Host "7. 🎬 Generate Video with Runway ML Gen-4 (Premium 30s)" -ForegroundColor Yellow
     Write-Host ""
-    Write-Host "💡 Tip: Use parameters for automation! Example: .\AI-Cat-News-Studio.ps1 6" -ForegroundColor Yellow
+    Write-Host "💡 Tip: Use parameters for automation! Example: .\AI-Cat-News-Studio.ps1 7" -ForegroundColor Yellow
     Write-Host ""
 
-    $Option = Read-Host "Enter your choice (1-6)"
+    $Option = Read-Host "Enter your choice (1-7)"
 }
 
 # Execute the chosen option
@@ -190,8 +193,12 @@ switch ($Option) {
         Write-Host "📁 Browsing Content Structure..." -ForegroundColor Blue
         & $pythonCmd scripts\content_browser.py
     }
+    "7" {
+        Write-Host "🎬 Generating Video with Runway ML Gen-4..." -ForegroundColor Yellow
+        & $pythonCmd scripts\create_runway_video.py
+    }
     default {
-        Write-Host "❌ Invalid choice '$Option'. Valid options: 1, 2, 3, 4, 5, 6" -ForegroundColor Red
+        Write-Host "❌ Invalid choice '$Option'. Valid options: 1, 2, 3, 4, 5, 6, 7" -ForegroundColor Red
         Write-Host "💡 Use -help for usage information" -ForegroundColor Yellow
         exit 1
     }

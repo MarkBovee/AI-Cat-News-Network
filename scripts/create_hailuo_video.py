@@ -90,21 +90,41 @@ Camera: Professional fixed shot with stable framing, subtle zoom for emphasis"""
     
     print(f"📝 Video prompt: {len(video_prompt)} characters")
     
-    # MiniMax Hailuo-02 constraint: 6 seconds maximum for 1080P
-    hailuo_duration = 6  # Fixed duration for MiniMax Hailuo-02 1080P
+    # Get configurable video settings from environment
+    config_duration = int(os.getenv('VIDEO_DURATION', '6'))
+    config_resolution = os.getenv('VIDEO_RESOLUTION', '1080p')
+    config_aspect_ratio = os.getenv('VIDEO_ASPECT_RATIO', '9:16')
+    config_quality = os.getenv('VIDEO_QUALITY', 'high')
+    
+    print(f"🎛️  Configuration Settings:")
+    print(f"    Duration: {config_duration}s (from .env VIDEO_DURATION)")
+    print(f"    Resolution: {config_resolution} (from .env VIDEO_RESOLUTION)")
+    print(f"    Aspect Ratio: {config_aspect_ratio} (from .env VIDEO_ASPECT_RATIO)")
+    print(f"    Quality: {config_quality} (from .env VIDEO_QUALITY)")
+    
+    # MiniMax Hailuo-02 constraints
+    max_duration = 6  # Fixed maximum for MiniMax Hailuo-02
+    hailuo_duration = min(config_duration, max_duration)
+    
+    if config_duration > max_duration:
+        print(f"⚠️  Requested {config_duration}s exceeds MiniMax limit of {max_duration}s, using {hailuo_duration}s")
+    
     print(f"🎬 Generating {hailuo_duration}-second professional cat news video...")
-    print(f"📏 Note: MiniMax Hailuo-02 supports maximum 6 seconds for 1080P quality")
+    print(f"📏 Note: MiniMax Hailuo-02 supports maximum 6 seconds for best quality")
     
     try:
         # MiniMax Hailuo API endpoint
         url = "https://api.minimax.io/v1/video_generation"
         
-        # Prepare request
+        # Prepare request with configurable settings
+        # Convert resolution format for MiniMax API
+        minimax_resolution = "720P" if config_resolution == "720p" else "1080P"
+        
         payload = {
             "model": "MiniMax-Hailuo-02",
             "prompt": video_prompt,
-            "duration": hailuo_duration,  # Fixed 6 seconds for 1080P
-            "resolution": "1080P"
+            "duration": hailuo_duration,
+            "resolution": minimax_resolution  # Use configured resolution
         }
         
         headers = {
@@ -113,8 +133,10 @@ Camera: Professional fixed shot with stable framing, subtle zoom for emphasis"""
         }
         
         print(f"🔄 Sending request to MiniMax Hailuo...")
-        print(f"📊 Duration: {hailuo_duration} seconds (MiniMax constraint)")
-        print(f"📐 Resolution: 1080P (vertical format)")
+        print(f"📊 Duration: {hailuo_duration} seconds (configured: {config_duration}s)")
+        print(f"📐 Resolution: {minimax_resolution} (configured: {config_resolution})")
+        print(f"📱 Aspect Ratio: {config_aspect_ratio}")
+        print(f"💰 Cost: ~$0.10 per generation")
         
         # Make API request
         response = requests.post(url, headers=headers, json=payload, timeout=60)

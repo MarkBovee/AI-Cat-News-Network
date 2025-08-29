@@ -28,14 +28,23 @@ This automatically:
 ### 2. Test the Pipeline
 
 **Start Simple (Recommended):**
-- **Option 4**: Quick Cat News Test → Generates script from real news
-- **Option 6**: Test Voice Generation → Creates professional voice-over
-- **Option 12**: Browse Content → See your organized files
+- **Option 1**: Generate Cat News Script → Creates script from real news
+- **Option 2**: Generate Voice-Over → Creates professional voice-over  
+- **Option 6**: Browse Content → See your organized files
+
+**Video Generation Options:**
+- **Option 4**: MiniMax Hailuo (6s, Professional, ~$0.10)
+- **Option 5**: Google Veo 3 (Variable, Advanced AI)
+- **Option 7**: Runway ML Gen-4 (Configurable, Cinematic, ~$1-8) ⭐ **RECOMMENDED**
+
+**Runway ML Configuration** (in .env file):
+- `VIDEO_DURATION=10` (5-90 seconds, start with 10s for testing)
+- `VIDEO_RESOLUTION=1080p` (720p/1080p/2160p)
+- `VIDEO_QUALITY=high` (standard/high/premium)
 
 **Advanced Testing:**
-- **Option 1**: MiniMax Video Generation (Paid API)
-- **Option 2**: Google Veo 3 Video Generation (Free Tier)
-- **Option 11**: Full Agent Framework Workflow
+- **Option 3**: Veo 3 Metadata Preparation
+- **Full Automation**: Run script → voice → video → cleanup
 
 ## 📁 Project Structure
 
