@@ -108,19 +108,17 @@ broadcast television lighting, shallow depth of field. Cat has expressive eyes a
 News studio environment with subtle animation - gentle camera movements, professional atmosphere.
 Duration: {runway_duration} seconds. Style: Professional broadcast television quality."""
     
-    # Runway ML Gen-4 API request
+    # Runway ML API request (try turbo model)
     runway_request = {
-        "prompt": video_prompt,
-        "model": "gen4",
+        "promptText": video_prompt,
+        "model": "turbo",  # Try simple turbo model
         "duration": runway_duration,
-        "resolution": config_resolution,  # Use configured resolution
-        "aspect_ratio": config_aspect_ratio,  # Use configured aspect ratio
-        "quality": config_quality,  # Use configured quality
-        "seed": None  # Random generation
+        "ratio": config_aspect_ratio,
+        "seed": 42
     }
     
     print("📋 Runway ML Request Details:")
-    print(f"📊 Model: Gen-4 (Latest)")
+    print(f"📊 Model: Gen-3 Alpha Turbo (Available)")
     print(f"📊 Duration: {runway_duration} seconds (configured)")
     print(f"📊 Resolution: {config_resolution} ({config_aspect_ratio} aspect ratio)")
     print(f"📊 Quality: {config_quality}")
@@ -134,15 +132,16 @@ Duration: {runway_duration} seconds. Style: Professional broadcast television qu
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     
     try:
-        print("\n🚀 Sending request to Runway ML Gen-4...")
+        print("\n🚀 Sending request to Runway ML Gen-3 Alpha Turbo...")
         
-        # Runway ML API endpoint
-        url = "https://api.runwayml.com/v1/videos/generations"
+        # Runway ML API endpoint (updated to correct dev endpoint)
+        url = "https://api.dev.runwayml.com/v1/text_to_video"
         
         headers = {
             "Authorization": f"Bearer {runway_api_key}",
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "application/json",
+            "X-Runway-Version": "2024-11-06"
         }
         
         response = requests.post(url, json=runway_request, headers=headers, timeout=30)
@@ -178,7 +177,8 @@ Duration: {runway_duration} seconds. Style: Professional broadcast television qu
             
             # Save metadata
             metadata_path = f"content/video/runway_video_result_{timestamp}.json"
-            content_manager.save_content(metadata_path, metadata)
+            with open(metadata_path, 'w', encoding='utf-8') as f:
+                json.dump(metadata, f, indent=2, ensure_ascii=False)
             
             print(f"📄 Metadata saved: {metadata_path}")
             print(f"🆔 Generation ID: {result.get('id')}")
@@ -207,7 +207,8 @@ Duration: {runway_duration} seconds. Style: Professional broadcast television qu
             }
             
             error_path = f"content/video/runway_error_{timestamp}.json"
-            content_manager.save_content(error_path, error_metadata)
+            with open(error_path, 'w', encoding='utf-8') as f:
+                json.dump(error_metadata, f, indent=2, ensure_ascii=False)
             print(f"❌ Error details saved: {error_path}")
             
             return False
@@ -226,10 +227,11 @@ def check_runway_generation_status(generation_id, api_key, timestamp):
     """Check the status of a Runway ML video generation"""
     print(f"🔍 Checking status for generation: {generation_id}")
     
-    url = f"https://api.runwayml.com/v1/videos/generations/{generation_id}"
+    url = f"https://api.dev.runwayml.com/v1/tasks/{generation_id}"
     headers = {
         "Authorization": f"Bearer {api_key}",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "X-Runway-Version": "2024-11-06"
     }
     
     max_attempts = 60  # Check for up to 10 minutes
@@ -259,7 +261,8 @@ def check_runway_generation_status(generation_id, api_key, timestamp):
                     }
                     
                     final_path = f"content/video/runway_final_{timestamp}.json"
-                    content_manager.save_content(final_path, final_metadata)
+                    with open(final_path, 'w', encoding='utf-8') as f:
+                        json.dump(final_metadata, f, indent=2, ensure_ascii=False)
                     
                     print(f"🎬 Video URL: {status_data.get('video_url')}")
                     print(f"📄 Final metadata saved: {final_path}")
@@ -296,5 +299,4 @@ if __name__ == "__main__":
         print("💡 Check the content/video/ folder for results")
     else:
         print("\n❌ Runway ML video generation failed")
-    
-    input("\nPress Enter to continue...")
+        sys.exit(1)

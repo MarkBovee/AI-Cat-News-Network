@@ -1,0 +1,19 @@
+{
+  "timestamp": "20250829_170602",
+  "service": "MiniMax-Hailuo",
+  "model": "MiniMax-Hailuo-02",
+  "prompt": "Professional cat news anchor reporting: Cat News Report\n    \nStyle: CNN-style modern news studio\nSetting: Sophisticated orange tabby cat wearing a tiny professional news tie, sitting behind a sleek news desk\nLighting: Professional broadcast lighting with blue and white color scheme\nBackground: News ticker running at bottom, clean newsroom aesthetic\nAction: Cat maintains serious news anchor posture with subtle cat behaviors - ear twitches, head tilts, occasional grooming\nQuality: High definition, broadcast quality, vertical 9:16 format for social media\nCamera: Professional fixed shot with stable framing, subtle zoom for emphasis",
+  "audio_duration": 22,
+  "video_duration": 6,
+  "api_response": {
+    "task_id": "",
+    "base_resp": {
+      "status_code": 1008,
+      "status_msg": "insufficient balance"
+    }
+  },
+  "status": "generated",
+  "script_path": "content\\scripts\\script_quick_6s_20250829_170527.txt",
+  "audio_path": "content\\audio\\audio_quick_6s_20250829_170527.mp3",
+  "topic": "Cat News Report"
+}

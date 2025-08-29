@@ -77,8 +77,17 @@ def generate_hailuo_video():
         audio_duration = 22  # Default fallback
         print(f"⚠️  Could not detect audio duration, using {audio_duration}s default")
     
-    # Create professional video prompt for Hailuo
-    video_prompt = f"""Professional cat news anchor reporting: {topic}
+    # Use the full script content as video prompt for better AI understanding
+    with open(script_path, 'r', encoding='utf-8') as f:
+        full_script_content = f.read()
+    
+    # If it's a professional script, use it directly, otherwise create basic prompt
+    if "**PROFESSIONAL CAT NEWS VIDEO SCRIPT**" in full_script_content:
+        video_prompt = full_script_content
+        print(f"📝 Using professional script as video prompt: {len(video_prompt)} characters")
+    else:
+        # Fallback to simple prompt for basic scripts
+        video_prompt = f"""Professional cat news anchor reporting: {topic}
     
 Style: CNN-style modern news studio
 Setting: Sophisticated orange tabby cat wearing a tiny professional news tie, sitting behind a sleek news desk
@@ -87,8 +96,7 @@ Background: News ticker running at bottom, clean newsroom aesthetic
 Action: Cat maintains serious news anchor posture with subtle cat behaviors - ear twitches, head tilts, occasional grooming
 Quality: High definition, broadcast quality, vertical 9:16 format for social media
 Camera: Professional fixed shot with stable framing, subtle zoom for emphasis"""
-    
-    print(f"📝 Video prompt: {len(video_prompt)} characters")
+        print(f"📝 Using basic video prompt: {len(video_prompt)} characters")
     
     # Get configurable video settings from environment
     config_duration = int(os.getenv('VIDEO_DURATION', '6'))

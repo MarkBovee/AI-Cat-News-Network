@@ -1,0 +1,16 @@
+{
+  "timestamp": "20250829_172258",
+  "provider": "runway_ml_gen4",
+  "error": true,
+  "status_code": 400,
+  "response": "{\"error\":\"The X-Runway-Version header was not provided in the request.\",\"docUrl\":\"https://docs.dev.runwayml.com/api\"}",
+  "request": {
+    "prompt": "Professional news studio with orange tabby cat wearing suit and tie at news desk. \nCat anchor speaking directly to camera with confident expression. Modern broadcast studio lighting, \nprofessional news graphics in background. Shot: Medium close-up of cat anchor, 4K cinematic quality, \nbroadcast television lighting, shallow depth of field. Cat has expressive eyes and professional demeanor.\nNews studio environment with subtle animation - gentle camera movements, professional atmosphere.\nDuration: 6 seconds. Style: Professional broadcast television quality.",
+    "model": "gen4",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "quality": "high",
+    "seed": null
+  }
+}
