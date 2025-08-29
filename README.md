@@ -43,6 +43,8 @@ This automatically:
 - **Option 4**: MiniMax Hailuo (6s, Professional, ~$0.10)
 - **Option 5**: Google Veo 3 (Variable, Advanced AI)
 - **Option 7**: Runway ML Gen-4 (Configurable, Cinematic, ~$1-8) ⭐ **RECOMMENDED**
+- **New**: Pika Labs (High-quality, 9:16 optimized)
+- **New**: Dream Machine (Exceptional quality, cinematic results) ⭐ **HIGH QUALITY**
 
 **Runway ML Configuration** (in .env file):
 - `VIDEO_DURATION=10` (5-90 seconds, start with 10s for testing)
@@ -102,7 +104,7 @@ AI-Cat-News-Network/
 - ✅ **Runway ML** - Working with configurable settings  
 - ✅ **HunyuanVideo** - Framework ready, needs model integration
 - ✅ **Pika Labs** - Working (API key required)
-- 📋 **Dream Machine** - Planned
+- ✅ **Dream Machine** - Working (API key required)
 - 📋 **CogVideoX-Flash** - Planned
 
 ## 🎮 PowerShell Studio Menu
