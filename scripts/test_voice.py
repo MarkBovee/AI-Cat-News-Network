@@ -1,26 +1,36 @@
 #!/usr/bin/env python3
 import os
+import sys
 from dotenv import load_dotenv
+
+# Add the parent directory to sys.path so we can import utils
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from utils.content_manager import content_manager
 
 load_dotenv()
 
-print("🎤 Testing ElevenLabs Voice Generation")
+print("🎤 Testing ElevenLabs Voice Generation - Organized Structure")
 print(f"🔑 API Key loaded: {'✅' if os.getenv('ELEVENLABS_API_KEY') else '❌'}")
 
 try:
     from elevenlabs import ElevenLabs
-    import os
     
     # Initialize ElevenLabs client
     client = ElevenLabs(api_key=os.getenv('ELEVENLABS_API_KEY'))
     
-    # Read the generated script
-    script_file = "content/quick_test/cat_news_script.txt"
-    if not os.path.exists(script_file):
-        print(f"❌ Script file not found: {script_file}")
+    # Get the latest script from our organized structure
+    latest_scripts = content_manager.get_latest_files("scripts", limit=1)
+    if not latest_scripts:
+        print("❌ No scripts found in content/scripts/")
+        print("💡 Run the quick cat test first to generate a script")
         exit(1)
-        
-    with open(script_file, "r") as f:
+    
+    script_filepath = latest_scripts[0]["filepath"]
+    print(f"📄 Using latest script: {os.path.basename(script_filepath)}")
+    
+    # Read the script content
+    with open(script_filepath, "r", encoding='utf-8') as f:
         content = f.read()
     
     print(f"📄 Script content loaded ({len(content)} chars)")
@@ -55,17 +65,33 @@ try:
     # Convert generator to bytes
     audio_bytes = b''.join(audio_generator)
     
-    # Save audio
-    voice_path = "content/quick_test/cat_news_voice.mp3"
-    with open(voice_path, 'wb') as f:
-        f.write(audio_bytes)
+    # Save audio using content manager
+    voice_settings = {
+        "voice_id": "pNInz6obpgDQGcFmaJgB",
+        "model_id": "eleven_monolingual_v1",
+        "text_length": len(script_text)
+    }
+    
+    audio_filepath = content_manager.save_audio(
+        audio_data=audio_bytes,
+        script_filepath=script_filepath,
+        voice_settings=voice_settings
+    )
     
     # Check file size
-    size_kb = os.path.getsize(voice_path) / 1024
-    print(f"✅ Voice-over created: {voice_path}")
+    size_kb = len(audio_bytes) / 1024
+    print(f"✅ Voice-over created: {os.path.basename(audio_filepath)}")
     print(f"📊 Audio size: {size_kb:.1f} KB")
+    print(f"📁 Saved in: content/audio/")
     print("🎬 Ready to combine with video!")
     
+    # Show content organization
+    print(f"\n📋 Content Pipeline Status:")
+    print(f"   📰 News Items: {len(content_manager.get_latest_files('newsitems'))}")
+    print(f"   📝 Scripts: {len(content_manager.get_latest_files('scripts'))}")
+    print(f"   🎤 Audio Files: {len(content_manager.get_latest_files('audio'))}")
+    print(f"   🎬 Video Files: {len(content_manager.get_latest_files('video'))}")
+
 except ImportError:
     print("❌ ElevenLabs not installed")
 except Exception as e:

@@ -62,9 +62,10 @@ Write-Host "8. 🚀 Full Production Demo - Veo 3 (Real Video Generation)" -Foreg
 Write-Host "9. 🧪 Integration Test (All Systems)" -ForegroundColor Cyan
 Write-Host "10. 🔧 Test Individual Components (Modular Testing)" -ForegroundColor Yellow
 Write-Host "11. 🧬 Test Agent Framework (Full Workflow with Outputs)" -ForegroundColor Magenta
+Write-Host "12. 📁 Browse Content Structure (Organized Files)" -ForegroundColor Blue
 Write-Host ""
 
-$choice = Read-Host "Enter your choice (1-11)"
+$choice = Read-Host "Enter your choice (1-12)"
 
 switch ($choice) {
     "1" {
@@ -110,6 +111,10 @@ switch ($choice) {
     "11" {
         Write-Host "🧬 Running Agent Framework Test..." -ForegroundColor Magenta
         & $pythonCmd scripts\test_agent_framework.py
+    }
+    "12" {
+        Write-Host "📁 Browsing Content Structure..." -ForegroundColor Blue
+        & $pythonCmd scripts\content_browser.py
     }
     default {
         Write-Host "❌ Invalid choice. Running component test..." -ForegroundColor Red

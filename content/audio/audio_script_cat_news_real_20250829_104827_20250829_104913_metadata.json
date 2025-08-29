@@ -1,0 +1,11 @@
+{
+  "timestamp": "20250829_104913",
+  "script_filepath": "content\\scripts\\script_cat_news_real_20250829_104827.txt",
+  "voice_settings": {
+    "voice_id": "pNInz6obpgDQGcFmaJgB",
+    "model_id": "eleven_monolingual_v1",
+    "text_length": 740
+  },
+  "audio_filepath": "content\\audio\\audio_script_cat_news_real_20250829_104827_20250829_104913.mp3",
+  "file_size_kb": 784.94140625
+}

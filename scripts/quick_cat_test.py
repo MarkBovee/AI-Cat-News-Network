@@ -3,15 +3,16 @@ import os
 import sys
 from dotenv import load_dotenv
 
-# Add the parent directory to sys.path so we can import config
+# Add the parent directory to sys.path so we can import config and utils
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config.ai_provider import ai_provider
+from utils.content_manager import content_manager
 
 load_dotenv()
 
 # Quick test
-print("🐱 Quick Cat News Test")
+print("🐱 Quick Cat News Test - Organized Content Structure")
 print("Creating trending cat news video...")
 
 # Real news topics that cats would report on
@@ -32,6 +33,14 @@ real_news_topics = [
 import random
 topic = random.choice(real_news_topics)
 print(f"📰 Real News Topic: {topic}")
+
+# Save the news item
+news_item_path = content_manager.save_news_item(
+    topic=topic,
+    source="real_news_curated",
+    metadata={"selected_from": len(real_news_topics), "script_type": "cat_news"}
+)
+print(f"📄 News item saved: {os.path.basename(news_item_path)}")
 
 # Generate script
 script_prompt = f"""
@@ -69,10 +78,20 @@ print("-" * 40)
 print(script)
 print("-" * 40)
 
-# Save to file
-os.makedirs("content/quick_test", exist_ok=True)
-with open("content/quick_test/cat_news_script.txt", "w") as f:
-    f.write(f"Topic: {topic}\n\n{script}")
+# Save script using content manager
+script_path = content_manager.save_script(
+    content=f"Topic: {topic}\n\n{script}",
+    script_type="cat_news_real"
+)
+print(f"✅ Script saved: {os.path.basename(script_path)}")
 
-print("✅ Script saved to content/quick_test/cat_news_script.txt")
-print("🎬 Ready for video production!")
+# Extract news item ID from the path for linking
+news_item_id = os.path.basename(news_item_path).replace('.json', '')
+print(f"🔗 Linked to news item: {news_item_id}")
+
+print("🎬 Ready for voice generation!")
+print(f"📁 Files organized in content/ structure:")
+print(f"   📰 News: content/newsitems/")
+print(f"   📝 Scripts: content/scripts/")
+print(f"   🎤 Audio: content/audio/ (ready for voice generation)")
+print(f"   🎬 Video: content/video/ (ready for video generation)")
