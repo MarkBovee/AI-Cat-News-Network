@@ -29,10 +29,10 @@ MANIFEST
 venv/
 ENV/
 env/
-.env/
+#.env/
 
 # API Keys and Secrets
-.env
+#.env
 *.key
 *.pem
 secrets.json
