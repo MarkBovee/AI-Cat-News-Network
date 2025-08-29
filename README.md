@@ -100,12 +100,13 @@ AI-Cat-News-Network/
 | **Community tools**           | Chipling.xyz, studio.sefirot.io                                      | Experimental platforms; may require vetting    |
 
 ### Current Implementation Status
-- ✅ **Hailuo (MiniMax)** - Working but needs account funding
-- ✅ **Runway ML** - Working with configurable settings  
-- ✅ **HunyuanVideo** - Framework ready, needs model integration
-- ✅ **Pika Labs** - Working (API key required)
-- ✅ **Dream Machine** - Working (API key required)
-- 📋 **CogVideoX-Flash** - Planned
+- ✅ **Hailuo (MiniMax)** - Working but needs account funding (~$0.10)
+- ✅ **Runway ML** - Working but needs credits (~$1-8)  
+- ✅ **HunyuanVideo** - Framework ready, needs model integration (FREE)
+- ✅ **Pika Labs** - Working but API access pending + credits required
+- ✅ **Dream Machine** - Working but needs credits/payment
+- ✅ **CogVideoX-Flash** - Local implementation, requires NVIDIA GPU (FREE)
+- ✅ **Open-Sora** - Local implementation, dependency conflicts (FREE)
 
 ## 🎮 PowerShell Studio Menu
 

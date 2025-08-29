@@ -29,24 +29,23 @@ class DreamMachineGenerator:
         
         headers = {
             'Authorization': f'Bearer {self.api_key}',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
         
         payload = {
             "prompt": prompt,
+            "model": "ray-2",  # Latest Ray 2 model
             "aspect_ratio": "9:16",  # Vertical for social media
-            "loop": False,
-            "keyframes": {
-                "frame0": {
-                    "type": "generation",
-                    "text": prompt
-                }
-            }
+            "resolution": "720p",  # HD quality
+            "duration": f"{duration}s",  # Duration in seconds format
+            "loop": False
         }
         
         try:
             print(f"🎬 Sending request to Dream Machine...")
             print(f"📝 Prompt: {prompt}")
+            print(f"⚙️ Model: ray-2, Resolution: 720p, Duration: {duration}s")
             
             response = requests.post(
                 f"{self.base_url}/generations",
@@ -82,7 +81,7 @@ class DreamMachineGenerator:
         
         if video_url:
             # Download and save video
-            return self._download_video(video_url, prompt, duration)
+            return self._download_video(video_url, prompt, duration, generation_id)
         else:
             return self._simulate_dream_response(prompt, duration)
     
@@ -115,11 +114,20 @@ class DreamMachineGenerator:
                     if state == 'completed':
                         assets = result.get('assets', {})
                         video_url = assets.get('video')
-                        return video_url
+                        if video_url:
+                            return video_url
+                        else:
+                            print("❌ No video URL in completed response")
+                            return None
                     elif state == 'failed':
                         failure_reason = result.get('failure_reason', 'Unknown error')
                         print(f"❌ Video generation failed: {failure_reason}")
                         return None
+                    elif state in ['queued', 'dreaming']:
+                        # Still processing, continue polling
+                        pass
+                    else:
+                        print(f"⚠️  Unknown state: {state}")
                     
                     # Wait before next poll
                     time.sleep(15)  # Dream Machine can take longer

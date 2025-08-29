@@ -1,0 +1,20 @@
+{
+  "timestamp": "20250829_182401",
+  "provider": "cogvideox_flash_simulation",
+  "model": "THUDM/CogVideoX-2B-simulation",
+  "prompt": "A professional orange tabby cat news anchor wearing a business suit sits confidently at a modern newsroom desk. The cat has an authoritative expression with intelligent eyes looking directly at the camera. Behind the cat is a sleek newsroom with multiple screens displaying \"CAT NEWS NETWORK\" in bold letters. Professional studio lighting creates a warm, broadcast-quality atmosphere. The cat occasionally makes subtle head movements and blinks naturally while maintaining a professional news anchor posture. High quality, realistic, professional broadcast environment.\n\nNews context: **CAT NEWS QUICK UPDATE**\nBreaking news: Local cat elected mayor, promises tuna for all!\n",
+  "duration": 6,
+  "resolution": "720x480",
+  "fps": 8,
+  "num_frames": 48,
+  "status": "simulated",
+  "note": "Simulation - Install CogVideoX-Flash dependencies for real generation",
+  "requirements": {
+    "gpu": "NVIDIA GPU with 8GB+ VRAM recommended",
+    "packages": [
+      "diffusers>=0.30.0",
+      "transformers>=4.44.0",
+      "torch>=2.0.0"
+    ]
+  }
+}
