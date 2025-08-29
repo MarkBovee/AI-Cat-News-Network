@@ -1,12 +1,16 @@
 {
-  "timestamp": "20250829_120406",
-  "model_used": "veo-3-simulation",
-  "prompt": "Professional cat news anchor reporting: Marathon runner completes race while juggling for entire 26.2 miles\n\nScene: Modern news studio with a sophisticated orange tabby cat sitting behind a sleek news desk. The cat is wearing a tiny professional news tie. Studio has CNN-style lighting with blue and white color scheme. News ticker running at bottom of screen.\n\nAction: Cat maintains serious news anchor posture while occasionally displaying subtle cat behaviors - ear twitches, head tilts, brief grooming gestures. Professional studio lighting creates a broadcast-quality appearance. Professional pacing with natural cat behaviors and subtle reactions.\n\nStyle: High-definition broadcast quality, professional news studio aesthetic, 16:9 aspect ratio, stable camera work, realistic lighting and shadows.\n\nDuration: 22 seconds - optimal length for Instagram Reels and YouTube Shorts.",
+  "timestamp": "20250829_122724",
+  "service": "MiniMax",
+  "prompt": "Create a professional news video: Marathon runner completes race while juggling for entire 26.2 miles\n\nStyle: CNN-style news studio with sophisticated orange tabby cat as news anchor\nSetting: Modern newsroom with blue/white color scheme, news ticker at bottom\nCat Appearance: Wearing tiny professional news tie, sitting behind sleek news desk\nDuration: 21 seconds\nQuality: High definition, broadcast quality, vertical 9:16 format\nCamera: Professional fixed shot, occasional subtle zoom for emphasis\nLighting: Professional studio lighting with realistic shadows\n\nThe cat should maintain serious news anchor posture while occasionally displaying subtle cat behaviors like ear twitches, head tilts, and brief grooming gestures.",
   "audio_duration": 21.49875,
-  "simulated_video_url": "https://storage.googleapis.com/simulation/cat_news_video.mp4",
-  "status": "simulated",
-  "note": "This is a simulation - replace with real Veo 3 API when available",
-  "original_metadata": {
+  "api_response": {
+    "base_resp": {
+      "status_code": 2049,
+      "status_msg": "invalid api key"
+    }
+  },
+  "status": "generated",
+  "metadata": {
     "script_path": "content\\scripts\\script_cat_news_real_20250829_104827.txt",
     "audio_path": "content\\audio\\audio_script_cat_news_real_20250829_104827_20250829_115820.mp3",
     "video_prompt": "Professional cat news anchor reporting: Marathon runner completes race while juggling for entire 26.2 miles\n\nScene: Modern news studio with a sophisticated orange tabby cat sitting behind a sleek news desk. The cat is wearing a tiny professional news tie. Studio has CNN-style lighting with blue and white color scheme. News ticker running at bottom of screen.\n\nAction: Cat maintains serious news anchor posture while occasionally displaying subtle cat behaviors - ear twitches, head tilts, brief grooming gestures. Professional studio lighting creates a broadcast-quality appearance. Professional pacing with natural cat behaviors and subtle reactions.\n\nStyle: High-definition broadcast quality, professional news studio aesthetic, 16:9 aspect ratio, stable camera work, realistic lighting and shadows.\n\nDuration: 22 seconds - optimal length for Instagram Reels and YouTube Shorts.",

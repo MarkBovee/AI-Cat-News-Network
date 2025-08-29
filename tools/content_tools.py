@@ -2,15 +2,11 @@ import os
 import requests
 import json
 from typing import List, Dict, Optional
-from moviepy.video.VideoClip import TextClip
-from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip, concatenate_videoclips
-from moviepy.video.io.VideoFileClip import VideoFileClip
-from moviepy.audio.io.AudioFileClip import AudioFileClip
-from moviepy.video.VideoClip import ImageClip
+# MoviePy removed - inadequate for professional AI video generation
+# Use MiniMax, Google Veo, or other AI video APIs instead
 from elevenlabs import ElevenLabs
 from PIL import Image, ImageDraw, ImageFont
 from config.ai_provider import ai_provider, generate_content_ideas, write_script, generate_hashtags
-from config.settings import ELEVENLABS_VOICE_ID
 from config.settings import ELEVENLABS_VOICE_ID
 
 class ContentGenerationTool:
@@ -212,141 +208,62 @@ class AIVideoCreationTool:
         ]
     
     def _create_video_with_assets(self, script: str, voice_path: str, visual_assets: List[Dict], output_path: str):
-        """Create the final video combining all assets."""
-        try:
-            # For now, create a simple text-based video with voice-over
-            # This is a placeholder until MoviePy dependencies are resolved
-            
-            segments = self._parse_script(script)
-            clips = []
-            
-            for i, segment in enumerate(segments):
-                # Create styled text clip
-                clip = TextClip(
-                    text=segment['text'],
-                    font_size=60,
-                    color='white',
-                    bg_color='navy',
-                    size=(1080, 1920),  # Vertical format for shorts
-                    method='caption'
-                ).with_duration(segment['duration'])
-                
-                clips.append(clip)
-            
-            # Concatenate clips
-            if clips:
-                final_video = concatenate_videoclips(clips)
-                
-                # Add voice-over if available
-                if voice_path and os.path.exists(voice_path):
-                    try:
-                        audio = AudioFileClip(voice_path)
-                        final_video = final_video.with_audio(audio)
-                    except Exception as e:
-                        print(f"Could not add audio: {e}")
-                
-                # Write video file
-                final_video.write_videofile(output_path, fps=24)
-                final_video.close()
-            
-            return output_path
-            
-        except Exception as e:
-            print(f"Error creating video: {e}")
-            # Fallback: create simple text file with script
-            with open(output_path.replace('.mp4', '_script.txt'), 'w') as f:
-                f.write(f"Cat News Script:\n\n{script}")
-            return f"Script saved (video creation failed): {output_path.replace('.mp4', '_script.txt')}"
-    
-    def generate_viral_cat_news_ideas(self, count: int = 3) -> str:
-        """Generate viral cat news video ideas based on recent events."""
-        prompt = f"""
-        Generate {count} viral cat news video ideas for YouTube Shorts based on recent news/trends.
+        """Create professional video using AI video generation APIs (not MoviePy).
         
-        Each idea should be:
-        - A serious news topic but told from a cat's perspective
-        - Funny and shareable
-        - 30 seconds perfect for shorts
-        - Include visual suggestions
-        
-        Format:
-        1. Title: [Catchy title with cat puns]
-           Topic: [News angle]
-           Hook: [Opening line]
-           Visuals: [What we'd see]
+        MoviePy has been removed as it only creates basic text overlays, not professional AI video.
+        Use MiniMax, Google Veo, or other AI video generation services instead.
         """
+        print("🎬 Video creation requires AI video generation APIs")
+        print("💡 Use MiniMax, Google Veo 3, or other professional video AI services")
+        print("❌ MoviePy removed - inadequate for professional video generation")
         
-        return ai_provider.generate_content(prompt, max_tokens=600, temperature=0.8)
-    
-    def _parse_script(self, script: str) -> List[Dict]:
-        """Parse script into timed segments."""
-        lines = script.split('\n')
-        segments = []
+        # Create metadata for AI video generation instead
+        video_metadata = {
+            "script": script,
+            "audio_path": voice_path,
+            "visual_requirements": visual_assets,
+            "output_path": output_path,
+            "recommended_apis": ["MiniMax", "Google Veo 3", "Runway ML", "Pika Labs"],
+            "note": "Use professional AI video generation - not basic text overlays"
+        }
         
-        for line in lines:
-            if line.strip() and not line.startswith('['):
-                # Extract timing if available
-                duration = 3  # Default
-                text = line.strip()
-                
-                # Look for timing markers like [0-3s]
-                if ':' in line and any(char in line for char in ['INTRO', 'NEWS', 'IMPACT', 'OUTRO']):
-                    text = line.split(':', 1)[1].strip()
-                    if 'INTRO' in line or 'OUTRO' in line:
-                        duration = 3
-                    else:
-                        duration = 8
-                
-                segments.append({
-                    'text': text,
-                    'duration': duration
-                })
-        
-        return segments
+        metadata_path = output_path.replace('.mp4', '_ai_video_metadata.json')
+        with open(metadata_path, 'w') as f:
+            json.dump(video_metadata, f, indent=2)
+            
+        print(f"📄 AI video metadata saved: {metadata_path}")
+        return metadata_path
 
 class VideoCreationTool:
-    """Legacy tool for basic video creation."""
+    """Professional AI video creation tool - NO MoviePy dependency."""
     
-    def create_text_video(self, script: str, output_path: str = "content/output.mp4") -> str:
-        """Create a simple text-based video from script."""
-        try:
-            # Parse script into segments
-            segments = self._parse_script(script)
-            clips = []
-            
-            for segment in segments:
-                # Create text clip
-                clip = TextClip(
-                    text=segment['text'],
-                    font_size=70,
-                    color='white',
-                    bg_color='black',
-                    size=(1080, 1920)  # Vertical format
-                ).set_duration(segment['duration'])
-                
-                clips.append(clip)
-            
-            # Concatenate clips
-            final_video = concatenate_videoclips(clips)
-            final_video.write_videofile(output_path, fps=24)
-            
-            return f"Video created: {output_path}"
-        except Exception as e:
-            return f"Error creating video: {str(e)}"
-    
-    def _parse_script(self, script: str) -> List[Dict]:
-        """Parse script into timed segments."""
-        lines = script.split('\n')
-        segments = []
+    def create_ai_video_request(self, script: str, output_path: str = "content/output.mp4") -> str:
+        """Create metadata for AI video generation (replaces MoviePy text overlays)."""
+        print("🎬 Professional AI Video Generation Required")
+        print("❌ MoviePy removed - only creates basic text, not professional video")
+        print("💡 Use MiniMax, Google Veo 3, or other AI video generation APIs")
         
-        for line in lines:
-            if line.strip() and not line.startswith('['):
-                segments.append({
-                    'text': line.strip(),
-                    'duration': 3  # Default 3 seconds per segment
-                })
+        # Create AI video generation request
+        ai_request = {
+            "script": script,
+            "output_path": output_path,
+            "video_style": "Professional cat news anchor in CNN-style studio",
+            "duration": "20-30 seconds",
+            "aspect_ratio": "9:16 (vertical for social media)",
+            "recommended_apis": [
+                "MiniMax Video Generation",
+                "Google Veo 3",
+                "Runway ML",
+                "Pika Labs"
+            ],
+            "note": "Requires professional AI video generation - not basic text overlays"
+        }
         
-        return segments
+        metadata_path = output_path.replace('.mp4', '_ai_request.json')
+        with open(metadata_path, 'w') as f:
+            json.dump(ai_request, f, indent=2)
+            
+        return f"AI video request saved: {metadata_path}"
 
 class SocialMediaTool:
     """Tool for social media integration."""

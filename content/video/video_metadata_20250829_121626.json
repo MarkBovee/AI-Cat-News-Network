@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250829_121626",
+  "video_path": "content/video\\cat_news_video_20250829_121626.mp4",
+  "audio_path": "content\\audio\\audio_script_cat_news_real_20250829_104827_20250829_115820.mp3",
+  "duration": 21.5,
+  "file_size_mb": 0.38,
+  "resolution": "1080x1920",
+  "fps": 24,
+  "codec": "h264",
+  "audio_codec": "aac",
+  "method": "MoviePy_Simple",
+  "topic": "Marathon runner completes race while juggling for entire 26.2 miles",
+  "status": "completed",
+  "ready_for_social_media": true
+}
