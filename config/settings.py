@@ -112,3 +112,34 @@ TRENDING_HASHTAGS = [
     "#CatAnchor",
     "#PetContent"
 ]
+
+# VIDEO PROVIDERS CONFIGURATION
+VIDEO_PROVIDERS = {
+    "google_veo3": {
+        "name": "Google Veo 3",
+        "api_key_env": "GOOGLE_API_KEY",
+        "free_tier": True,
+        "enabled": True
+    },
+    "minimax": {
+        "name": "MiniMax",
+        "api_key_env": "MINIMAX_API_KEY", 
+        "free_tier": False,
+        "enabled": True
+    }
+}
+
+# HELPER FUNCTIONS
+def get_setting(key, default=None):
+    """Get a setting value from the configuration."""
+    # This function provides access to all the settings defined above
+    settings_dict = {
+        'PROJECT_CONCEPT': PROJECT_CONCEPT,
+        'NEWS_CATEGORIES': NEWS_CATEGORIES,
+        'CAT_ANCHORS': CAT_ANCHORS,
+        'CONTENT_TYPES': CONTENT_TYPES,
+        'PLATFORM_SETTINGS': PLATFORM_SETTINGS,
+        'TRENDING_HASHTAGS': TRENDING_HASHTAGS,
+        'VIDEO_PROVIDERS': VIDEO_PROVIDERS
+    }
+    return settings_dict.get(key, default)
