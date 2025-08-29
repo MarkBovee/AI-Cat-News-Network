@@ -1,53 +1,48 @@
-# 📁 Scripts Directory Overview
+# AI Cat News Network - Production Scripts
 
-This folder contains all Python scripts for the AI Cat News Network.
+This directory contains the core production scripts for generating cat news content.
 
-## 🎬 Video Generation Scripts
+## 🎬 Production Pipeline Scripts
 
-### Core Demos
-- **ai_video_generator_demo.py** - MiniMax video generation demo
-- **veo3_video_demo.py** - Google Veo 3 video generation demo  
-- **provider_comparison.py** - Compare video providers (MiniMax vs Veo 3)
+### Essential Scripts
+- **`quick_cat_test.py`**: Generate cat news scripts from real news with feline commentary
+- **`test_voice.py`**: Create professional voice-overs using ElevenLabs API  
+- **`create_video_veo3.py`**: Generate videos using Google Veo 3 AI
+- **`content_browser.py`**: Browse and manage organized content structure
 
-### Production Scripts
-- **ai_video_demo.py** - Full MiniMax production workflow
-- **veo3_production_demo.py** - Full Veo 3 production workflow
+## 🚀 Production Workflow
 
-## 🧪 Testing & Setup Scripts
+1. **Generate Script**: `python scripts/quick_cat_test.py`
+   - Selects random real news story
+   - Creates cat commentary with professional format
+   - Saves to `content/scripts/` with metadata
 
-- **test_groq_setup.py** - Test Groq AI configuration
-- **test_voice.py** - Test ElevenLabs voice generation
-- **test_integration.py** - Complete system integration test
-- **test_components.py** - Individual component testing with outputs
-- **test_agent_framework.py** - Full agent workflow testing with separate folders
-- **quick_cat_test.py** - Quick text-based cat news test
+2. **Create Voice-Over**: `python scripts/test_voice.py` 
+   - Automatically uses latest script
+   - Generates professional voice-over with ElevenLabs
+   - Saves to `content/audio/` with voice settings
 
-## 🚀 Usage
+3. **Generate Video**: `python scripts/create_video_veo3.py`
+   - Uses latest script and audio files
+   - Creates professional video prompt for Veo 3
+   - Prepares complete video production package
 
-All scripts are run through the main PowerShell entry point:
+4. **Browse Content**: `python scripts/content_browser.py`
+   - Shows all content organized by type
+   - Displays pipeline status and file counts
+   - Tracks what's ready for next production stage
 
-```powershell
-.\AI-Cat-News-Studio.ps1
-```
+## 🎯 Streamlined & Clean
 
-Or directly:
+All test scripts, demos, and unused code have been removed for a clean, production-focused codebase. The PowerShell launcher (`AI-Cat-News-Studio.ps1`) provides easy access to all four essential functions.
 
-```bash
-python scripts/script_name.py
-```
+## � Content Integration
 
-## 📋 Script Status
-
-✅ **Active Scripts** (used in main menu):
-- ai_video_generator_demo.py
-- veo3_video_demo.py
-- provider_comparison.py
-- quick_cat_test.py
-- test_groq_setup.py
-- test_voice.py
-- ai_video_demo.py
-- veo3_production_demo.py
-- test_integration.py
+All scripts use the organized content structure in `content/` with automatic:
+- File linking across pipeline stages
+- Metadata generation and tracking  
+- Timestamp-based naming conventions
+- Professional production organization
 
 ❌ **Removed Scripts** (redundant/outdated):
 - advanced_cat_news.py
