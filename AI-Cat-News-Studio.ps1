@@ -1,16 +1,5 @@
 # AI Cat News Network - PowerShell Entry Point
-# EnWrite-Host "Available AI Video Generation Options:" -ForegroundColor Cyan
-Write-Host "1. 🎬 MiniMax Video Generator Demo (Paid API)" -ForegroundColor White
-Write-Host "2. 🆕 Google Veo 3 Video Generator Demo (Free Tier Available)" -ForegroundColor Green
-Write-Host "3. 🔍 Compare Video Providers (MiniMax vs Veo 3)" -ForegroundColor Cyan
-Write-Host "4. 📰 Quick Cat News Test (Text-based)" -ForegroundColor White  
-Write-Host "5. 🧪 Test Groq AI Setup" -ForegroundColor White
-Write-Host "6. 🎤 Test Voice Generation" -ForegroundColor White
-Write-Host "7. 🚀 Full Production Demo - MiniMax (Real Video Generation)" -ForegroundColor White
-Write-Host "8. 🚀 Full Production Demo - Veo 3 (Real Video Generation)" -ForegroundColor Green
-Write-Host "9. 🧪 Integration Test (All Systems)" -ForegroundColor Cyan
-Write-Host "10. 🔧 Test Individual Components (Modular Testing)" -ForegroundColor Yellow
-Write-Host "11. 🧬 Test Agent Framework (Full Workflow with Outputs)" -ForegroundColor Magentath Multiple AI Video Generation Providers (MiniMax & Google Veo 3)
+# Multiple AI Video Generation Providers (MiniMax & Google Veo 3)
 
 Write-Host "🐱 AI Cat News Network - Multi-Provider Video Generation Studio" -ForegroundColor Green
 Write-Host "================================================================" -ForegroundColor Green
@@ -64,12 +53,15 @@ Write-Host ""
 Write-Host "Available AI Video Generation Options:" -ForegroundColor Cyan
 Write-Host "1. 🎬 MiniMax Video Generator Demo (Paid API)" -ForegroundColor White
 Write-Host "2. 🆕 Google Veo 3 Video Generator Demo (Free Tier Available)" -ForegroundColor Green
-Write-Host "3. � Compare Video Providers (MiniMax vs Veo 3)" -ForegroundColor Cyan
-Write-Host "4. �📰 Quick Cat News Test (Text-based)" -ForegroundColor White  
+Write-Host "3. 🔍 Compare Video Providers (MiniMax vs Veo 3)" -ForegroundColor Cyan
+Write-Host "4. 📰 Quick Cat News Test (Text-based)" -ForegroundColor White  
 Write-Host "5. 🧪 Test Groq AI Setup" -ForegroundColor White
 Write-Host "6. 🎤 Test Voice Generation" -ForegroundColor White
 Write-Host "7. 🚀 Full Production Demo - MiniMax (Real Video Generation)" -ForegroundColor White
 Write-Host "8. 🚀 Full Production Demo - Veo 3 (Real Video Generation)" -ForegroundColor Green
+Write-Host "9. 🧪 Integration Test (All Systems)" -ForegroundColor Cyan
+Write-Host "10. 🔧 Test Individual Components (Modular Testing)" -ForegroundColor Yellow
+Write-Host "11. 🧬 Test Agent Framework (Full Workflow with Outputs)" -ForegroundColor Magenta
 Write-Host ""
 
 $choice = Read-Host "Enter your choice (1-11)"
