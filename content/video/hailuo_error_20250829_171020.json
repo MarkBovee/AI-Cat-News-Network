@@ -1,8 +1,0 @@
-{
-  "timestamp": "20250829_171020",
-  "provider": "minimax_hailuo_professional",
-  "error": true,
-  "status_code": 200,
-  "response": "{\"task_id\":\"\",\"base_resp\":{\"status_code\":1008,\"status_msg\":\"insufficient balance\"}}",
-  "script_path": "content\\scripts\\script_professional_6s_20250829_171019.txt"
-}
