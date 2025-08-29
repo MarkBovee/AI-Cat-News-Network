@@ -51,6 +51,27 @@ def create_veo3_video():
     with open(script_path, 'r', encoding='utf-8') as f:
         script_content = f.read()
     
+    # Get audio duration for accurate video timing
+    try:
+        from mutagen.mp3 import MP3
+        audio = MP3(audio_path)
+        audio_duration = audio.info.length
+        print(f"🎵 Audio duration: {audio_duration:.1f} seconds")
+    except:
+        audio_duration = 10  # Default fallback
+        print(f"⚠️  Could not detect audio duration, using {audio_duration}s default")
+    
+    # Determine video style based on duration
+    if audio_duration < 15:
+        duration_style = "engaging short-form content perfect for TikTok and Instagram Reels"
+        action_style = "Energetic delivery with expressive cat reactions and gestures"
+    elif audio_duration < 30:
+        duration_style = "optimal length for Instagram Reels and YouTube Shorts"
+        action_style = "Professional pacing with natural cat behaviors and subtle reactions"
+    else:
+        duration_style = "comprehensive format ideal for YouTube and extended social media"
+        action_style = "Relaxed professional delivery with full cat personality and detailed reporting"
+    
     # Extract topic and create video prompt
     lines = script_content.split('\n')
     topic = ""
@@ -64,11 +85,11 @@ def create_veo3_video():
 
 Scene: Modern news studio with a sophisticated orange tabby cat sitting behind a sleek news desk. The cat is wearing a tiny professional news tie. Studio has CNN-style lighting with blue and white color scheme. News ticker running at bottom of screen.
 
-Action: Cat maintains serious news anchor posture while occasionally displaying subtle cat behaviors - ear twitches, head tilts, brief grooming gestures. Professional studio lighting creates a broadcast-quality appearance.
+Action: Cat maintains serious news anchor posture while occasionally displaying subtle cat behaviors - ear twitches, head tilts, brief grooming gestures. Professional studio lighting creates a broadcast-quality appearance. {action_style}.
 
 Style: High-definition broadcast quality, professional news studio aesthetic, 16:9 aspect ratio, stable camera work, realistic lighting and shadows.
 
-Duration: 20-30 seconds perfect for social media."""
+Duration: {audio_duration:.0f} seconds - {duration_style}."""
     
     print(f"\n🎯 Video Prompt Created:")
     print("-" * 30)

@@ -51,8 +51,33 @@ try:
             line = line.strip('"')
             script_lines.append(line)
     
-    script_text = ' '.join(script_lines)
-    print(f"📝 Script to voice ({len(script_text)} chars): {script_text[:100]}...")
+    # Join and create optimal version for social media (20+ seconds)
+    full_script_text = ' '.join(script_lines)
+    
+    # Create a 20+ second version (target ~300-400 characters for 20-25 seconds)
+    sentences = full_script_text.split('. ')
+    script_parts = []
+    char_count = 0
+    
+    for sentence in sentences:
+        script_parts.append(sentence)
+        char_count += len(sentence) + 2  # +2 for '. '
+        
+        # Continue until we reach minimum 20 seconds worth (~300 chars)
+        if char_count >= 300:
+            break
+    
+    script_text = '. '.join(script_parts)
+    if not script_text.endswith('.'):
+        script_text += '.'
+    
+    # If still too short, use the full script
+    if len(script_text) < 250:
+        script_text = full_script_text
+    
+    print(f"📝 Full script ({len(full_script_text)} chars): {full_script_text[:100]}...")
+    print(f"🎯 Optimized script ({len(script_text)} chars): {script_text[:150]}...")
+    print(f"⏱️  Target duration: ~{len(script_text) * 0.12:.0f} seconds (20+ second minimum)")
     
     if not script_text.strip():
         print("❌ No dialogue text extracted from script")
